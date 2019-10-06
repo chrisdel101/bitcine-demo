@@ -3,7 +3,6 @@ import {
   FETCH_STARWARS_PEOPLE_SUCCESS,
   FETCH_STARWARS_PEOPLE_ERROR
 } from '../actions/actions'
-console.log(FETCH_STARWARS_PEOPLE_PENDING)
 const initialState = {
   pending: false,
   people: [],
@@ -34,7 +33,7 @@ export function peopleReducer(state = initialState, action) {
   }
 }
 
-export const getPeople = state => state.people
-export const getPeoplePending = state => state.pending
-export const getPeopleError = state => state.error
+// export const getPeople = state => state.people
+// export const getPeoplePending = state => state.pending
+// export const getPeopleError = state => state.error
 export default peopleReducer

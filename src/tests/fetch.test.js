@@ -1,7 +1,7 @@
 const fetchJS = require('../fetch.js')
 
-describe('fetchPeople', () => {
+describe.skip('fetchPeople', () => {
   it('test fetch', function() {
-    console.log(fetchJS.fetchPeople())
+    // console.log(fetchJS.fetchPeople()
   })
 })

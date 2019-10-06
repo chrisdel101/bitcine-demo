@@ -2,18 +2,18 @@ export const FETCH_STARWARS_PEOPLE_PENDING = 'FETCH_STARWARS_PEOPLE_PENDING'
 export const FETCH_STARWARS_PEOPLE_SUCCESS = 'FETCH_STARWARS_PEOPLE_SUCCESS'
 export const FETCH_STARWARS_PEOPLE_ERROR = 'FETCH_STARWARS_PEOPLE_ERROR'
 
-function fetchStarWarsPeople() {
+export function fetchStarWarsPeoplePending() {
   return {
     type: FETCH_STARWARS_PEOPLE_PENDING
   }
 }
-function fetchStarWarsPeopleSuccess(person) {
+export function fetchStarWarsPeopleSuccess(person) {
   return {
     type: FETCH_STARWARS_PEOPLE_SUCCESS,
     person
   }
 }
-function fetchStarWarsPeopleError(error) {
+export function fetchStarWarsPeopleError(error) {
   return {
     type: FETCH_STARWARS_PEOPLE_ERROR,
     error

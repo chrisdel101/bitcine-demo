@@ -1,31 +1,26 @@
 import {
-  FETCH_STARWARS_PEOPLE_PENDING,
-  FETCH_STARWARS_PEOPLE_SUCCESS,
-  fetchProductsError
+  fetchStarWarsPeoplePending,
+  fetchStarWarsPeopleSuccess,
+  fetchStarWarsPeopleError
 } from './actions/actions.js'
 import endpoints from './endpoints'
 
-function fetchPeople() {
+export default function fetchPeople() {
   const test = `${endpoints.root}${endpoints.people(1)}`
   return dispatch => {
-    dispatch(fetchPeoplePending())
-    console.log('HELLO')
-    fetch(test)
+    dispatch(fetchStarWarsPeoplePending())
+    fetch(test, { mode: 'no-cors' })
       .then(res => res.json())
       .then(res => {
         if (res.error) {
           throw res.error
         }
         console.log('res', res)
-        dispatch(fetchPeopleSuccess())
+        dispatch(fetchStarWarsPeopleSuccess())
         return res
       })
       .catch(error => {
-        dispatch(fetchPeopleError(error))
+        dispatch(fetchStarWarsPeopleError(error))
       })
   }
-}
-
-module.exports = {
-  fetchPeople
 }
