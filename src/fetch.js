@@ -9,13 +9,14 @@ export default function fetchPeople() {
   const test = `${endpoints.root}${endpoints.people(1)}`
   return dispatch => {
     dispatch(fetchStarWarsPeoplePending())
-    fetch(test, { mode: 'no-cors' })
+    console.log(test)
+    fetch(test)
       .then(res => res.json())
       .then(res => {
+        console.log('res', res)
         if (res.error) {
           throw res.error
         }
-        console.log('res', res)
         dispatch(fetchStarWarsPeopleSuccess())
         return res
       })

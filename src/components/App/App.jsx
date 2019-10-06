@@ -19,7 +19,7 @@ class App extends Component {
   simpleAction = event => {
     console.log('click')
     let x = this.props.fetchPeople()
-    console.log(this.props.fetchPeople())
+
     return this.props.fetchPeople()
   }
   render() {
