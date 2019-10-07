@@ -10,6 +10,7 @@ import {
   fetchCurrentPersonError,
   addPersonSuccess,
   addPersonError,
+  addPersonPending,
   viewPersonsArray
 } from '../../reducers/personReducer'
 
@@ -35,6 +36,7 @@ const mapStateToProps = state => ({
   fetchCurrentPersonError: fetchCurrentPersonError(state),
   addPersonSuccess: addPersonSuccess(state),
   addPersonError: addPersonError(state),
+  addPersonPending: addPersonPending(state),
   viewPersonsArray: viewPersonsArray(state)
 })
 // takes the fetchPerson call and dispatches it
