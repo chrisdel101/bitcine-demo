@@ -5,12 +5,12 @@ import './index.css'
 import fetchPeopleAction from '../../fetch'
 import { bindActionCreators } from 'redux'
 import {
-  getPerson,
-  getPersonPending,
-  getPersonError,
+  fetchCurrentPersonSuccess,
+  fetchCurrentPersonPending,
+  fetchCurrentPersonError,
   addPersonSuccess,
   addPersonError,
-  viewAllPersons
+  viewPersonsArray
 } from '../../reducers/personReducer'
 
 class App extends Component {
@@ -30,12 +30,12 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  personError: getPerson(state),
-  persons: getPersonPending(state),
-  personPending: getPersonError(state),
-  personAdd: addPersonSuccess(state),
-  personAddError: addPersonError(state),
-  personsAll: viewAllPersons(state)
+  fetchCurrentPersonSuccess: fetchCurrentPersonSuccess(state),
+  fetchCurrentPersonPending: fetchCurrentPersonPending(state),
+  fetchCurrentPersonError: fetchCurrentPersonError(state),
+  addPersonSuccess: addPersonSuccess(state),
+  addPersonError: addPersonError(state),
+  viewPersonsArray: viewPersonsArray(state)
 })
 // takes the fetchPerson call and dispatches it
 const mapDispatchToProps = dispatch =>
