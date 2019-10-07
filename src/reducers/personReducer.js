@@ -1,12 +1,15 @@
 import {
   FETCH_STARWARS_PERSON_PENDING,
   FETCH_STARWARS_PERSON_SUCCESS,
-  FETCH_STARWARS_PERSON_ERROR
+  FETCH_STARWARS_PERSON_ERROR,
+  ADD_STARWARS_PERSON_SUCCESS,
+  ADD_STARWARS_PERSON_ERROR
 } from '../actions/personActions'
+
 const initialState = {
-  pending: false,
-  people: [],
-  error: null
+  personPending: false,
+  persons: [],
+  personError: null
 }
 
 export function personReducer(state = initialState, action) {
@@ -15,26 +18,37 @@ export function personReducer(state = initialState, action) {
     case FETCH_STARWARS_PERSON_PENDING:
       return {
         ...state,
-        pending: true
+        personPending: true
       }
     case FETCH_STARWARS_PERSON_SUCCESS:
+      // console.log('HELLO1')
       return {
         ...state,
-        pending: false,
+        personPending: false,
         person: action.payload
       }
     case FETCH_STARWARS_PERSON_ERROR:
       return {
         ...state,
-        pending: false,
+        personPending: false,
         error: action.error
+      }
+    case ADD_STARWARS_PERSON_SUCCESS:
+      console.log('HELLO2', state, action.person)
+      return {
+        ...state,
+        persons: [...state, action.person]
       }
     default:
       return state
   }
 }
 
-export const getPerson = state => state.person
+// get state from store and map  to views
+export const getPerson = state => state.persons
 export const getPersonPending = state => state.personPending
-export const getPersonError = state => state.PersonError
+export const getPersonError = state => state.personError
+export const addPersonSuccess = state => state.person
+export const addPersonError = state => state.personError
+console.log('GET', getPerson)
 export default personReducer

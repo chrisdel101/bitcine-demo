@@ -9,6 +9,5 @@ export default function configureStore(initialState = {}) {
     initialState,
     composeEnhancer(applyMiddleware(thunk))
   )
-  console.log('store', store)
   return store
 }

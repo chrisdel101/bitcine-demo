@@ -7,7 +7,9 @@ import { bindActionCreators } from 'redux'
 import {
   getPerson,
   getPersonPending,
-  getPersonError
+  getPersonError,
+  addPersonSuccess,
+  addPersonError
 } from '../../reducers/personReducer'
 
 class App extends Component {
@@ -35,10 +37,13 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  error: getPerson(state),
-  products: getPersonPending(state),
-  pending: getPersonError(state)
+  personError: getPerson(state),
+  persons: getPersonPending(state),
+  personPending: getPersonError(state),
+  personAdd: addPersonSuccess(state),
+  personAddError: addPersonError(state)
 })
+// takes the fetchPerson call and dispatches it
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
@@ -46,7 +51,6 @@ const mapDispatchToProps = dispatch =>
     },
     dispatch
   )
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps

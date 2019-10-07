@@ -1,7 +1,9 @@
 import {
   fetchStarWarsPersonPending,
   fetchStarWarsPersonSuccess,
-  fetchStarWarsPersonError
+  fetchStarWarsPersonError,
+  addStarWarsPersonSuccess,
+  addStarWarsPersonError
 } from './actions/personActions.js'
 import endpoints from './endpoints'
 
@@ -11,13 +13,14 @@ export default function fetchPeople() {
     dispatch(fetchStarWarsPersonPending())
     fetch(test)
       .then(res => res.json())
-      .then(res => {
-        console.log('res', res)
-        if (res.error) {
-          throw res.error
+      .then(personRes => {
+        console.log('personRes', personRes)
+        if (personRes.error) {
+          throw personRes.error
         }
-        dispatch(fetchStarWarsPersonSuccess(res))
-        return res
+        dispatch(fetchStarWarsPersonSuccess(personRes))
+        dispatch(addStarWarsPersonSuccess(personRes))
+        return personRes
       })
       .catch(error => {
         dispatch(fetchStarWarsPersonError(error))
