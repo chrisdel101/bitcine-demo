@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import simpleAction from '../../actions/simpleActions'
 import './index.css'
 import Page from '../Page/Page.jsx'
 import fetchPeopleAction from '../../fetch'
 import { bindActionCreators } from 'redux'
+import {
+  getPerson,
+  getPersonPending,
+  getPersonError
+} from '../../reducers/personReducer'
 
 class App extends Component {
   constructor(props) {
     super(props)
+    // this.shouldComponentRender = this.shouldComponentRender.bind(this)
   }
 
   componentDidMount() {
@@ -18,22 +23,21 @@ class App extends Component {
 
   simpleAction = event => {
     console.log('click')
-    let x = this.props.fetchPeople()
-
     return this.props.fetchPeople()
   }
   render() {
     return (
       <div className="App">
-        <button onClick={this.simpleAction}>Test redux action</button>
-        <pre>{JSON.stringify(this.props)}</pre>
+        <button onClick={''}>Test redux action</button>
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  ...state
+  error: getPerson(state),
+  products: getPersonPending(state),
+  pending: getPersonError(state)
 })
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
