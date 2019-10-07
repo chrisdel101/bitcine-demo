@@ -7,9 +7,11 @@ import {
 } from '../actions/personActions'
 
 const initialState = {
-  personPending: false,
-  persons: [],
-  personError: null
+  currentPerson: null,
+  currentPeronFetchPending: false,
+  currentPersonFethcError: null,
+  currentPersonAddedPending: false,
+  persons: []
 }
 
 export function personReducer(state = initialState, action) {
@@ -18,37 +20,57 @@ export function personReducer(state = initialState, action) {
     case FETCH_STARWARS_PERSON_PENDING:
       return {
         ...state,
-        personPending: true
+        currentPeronPending: true
       }
     case FETCH_STARWARS_PERSON_SUCCESS:
-      // console.log('HELLO1')
+      console.log('HELLO1', action.person)
       return {
         ...state,
-        personPending: false,
-        person: action.payload
+        currentPeronPending: false,
+        currentPerson: action.person
       }
     case FETCH_STARWARS_PERSON_ERROR:
       return {
         ...state,
-        personPending: false,
+        currentPeronPending: false,
         error: action.error
       }
     case ADD_STARWARS_PERSON_SUCCESS:
-      console.log('HELLO2', action.person)
+      // console.log('HELLO2', action.person)
       return {
         ...state,
         persons: [...state.persons, action.person]
       }
+    case ADD_STARWARS_PERSON_ERROR:
+      return {
+        ...state,
+        error: action.error
+      }
+
     default:
       return state
   }
 }
 
-// get state from store and map  to views
-export const getPerson = state => state.persons
-export const getPersonPending = state => state.personPending
-export const getPersonError = state => state.personError
-export const addPersonSuccess = state => state.person
-export const addPersonError = state => state.personError
-console.log('GET', getPerson)
+// get state from store and map  to views single
+
+// displays the current person being fetched
+export const fetchProductsSuccess = state => {
+  console.log('state', state)
+  return state.personReducer.currentPerson
+}
+// displays true/false
+export const getcurrentPeronPending = state =>
+  state.personReducer.currentPeronPending
+export const getPersonError = state => state.personReducer.currentPersonError
+// displays error
+// displays current person added to persons array
+export const addPersonSuccess = state => state.personReducer.addPersonSuccess
+export const addPersonError = state => state.personReducer.currentPersonError
+// displays error
+// displays all persons in array
+export const viewAllPersons = state => {
+  // console.log('state', state)
+  return state.personReducer.persons
+}
 export default personReducer

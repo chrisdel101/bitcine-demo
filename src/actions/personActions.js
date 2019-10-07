@@ -3,6 +3,7 @@ export const FETCH_STARWARS_PERSON_SUCCESS = 'FETCH_STARWARS_PERSON_SUCCESS'
 export const FETCH_STARWARS_PERSON_ERROR = 'FETCH_STARWARS_PERSON_ERROR'
 export const ADD_STARWARS_PERSON_SUCCESS = 'ADD_STARWARS_PERSON_SUCCESS'
 export const ADD_STARWARS_PERSON_ERROR = 'ADD_STARWARS_PERSON_ERROR'
+export const ADD_STARWARS_PERSON_PENDING = 'ADD_STARWARS_PERSON_PENDING'
 
 export function fetchStarWarsPersonPending() {
   return {
@@ -30,6 +31,14 @@ export function addStarWarsPersonSuccess(person) {
       [person.name]: person
     },
     type: ADD_STARWARS_PERSON_SUCCESS
+  }
+}
+export function addStarWarsPersonPending(person) {
+  return {
+    person: {
+      [person.name]: person
+    },
+    type: ADD_STARWARS_PERSON_PENDING
   }
 }
 export function addStarWarsPersonError(error) {

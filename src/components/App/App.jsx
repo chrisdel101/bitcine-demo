@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './index.css'
-import Page from '../Page/Page.jsx'
+// import Page from '../Page/Page.jsx'
 import fetchPeopleAction from '../../fetch'
 import { bindActionCreators } from 'redux'
 import {
@@ -9,28 +9,21 @@ import {
   getPersonPending,
   getPersonError,
   addPersonSuccess,
-  addPersonError
+  addPersonError,
+  viewAllPersons
 } from '../../reducers/personReducer'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    // this.shouldComponentRender = this.shouldComponentRender.bind(this)
-  }
-
   componentDidMount() {
     const { fetchPeople } = this.props
     fetchPeople()
   }
 
-  simpleAction = event => {
-    console.log('click')
-    return this.props.fetchPeople()
-  }
   render() {
+    console.log('props', this.props)
     return (
       <div className="App">
-        <button onClick={''}>Test redux action</button>
+        <button>Test redux action</button>
       </div>
     )
   }
@@ -41,7 +34,8 @@ const mapStateToProps = state => ({
   persons: getPersonPending(state),
   personPending: getPersonError(state),
   personAdd: addPersonSuccess(state),
-  personAddError: addPersonError(state)
+  personAddError: addPersonError(state),
+  personsAll: viewAllPersons(state)
 })
 // takes the fetchPerson call and dispatches it
 const mapDispatchToProps = dispatch =>
