@@ -34,10 +34,10 @@ export function personReducer(state = initialState, action) {
         error: action.error
       }
     case ADD_STARWARS_PERSON_SUCCESS:
-      console.log('HELLO2', state, action.person)
+      console.log('HELLO2', action.person)
       return {
         ...state,
-        persons: [...state, action.person]
+        persons: [...state.persons, action.person]
       }
     default:
       return state

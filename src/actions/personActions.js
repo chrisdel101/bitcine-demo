@@ -26,6 +26,9 @@ export function fetchStarWarsPersonError(error) {
 }
 export function addStarWarsPersonSuccess(person) {
   return {
+    person: {
+      [person.name]: person
+    },
     type: ADD_STARWARS_PERSON_SUCCESS
   }
 }
