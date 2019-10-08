@@ -4,17 +4,28 @@ import { Provider } from 'react-redux'
 import configureStore from './store'
 import App from './components/App/App'
 import { fetchPeople } from './fetch'
+import Adapter from './setupTests'
+import { shallow, mount, render } from 'enzyme'
 
 describe('App Test', function() {
-  it('renders without crashing', () => {
-    const div = document.createElement('div')
-    ReactDOM.render(
+  // it('renders without crashing', () => {
+  //   const div = document.createElement('div')
+  //   ReactDOM.render(
+  //     <Provider store={configureStore()}>
+  //       <App />
+  //     </Provider>,
+  //     div
+  //   )
+  //   ReactDOM.unmountComponentAtNode(div)
+  // })
+  describe.only('paginate()', () => {
+    console.log('HERE')
+    const wrapper = shallow(
       <Provider store={configureStore()}>
         <App />
-      </Provider>,
-      div
+      </Provider>
     )
-    ReactDOM.unmountComponentAtNode(div)
+    console.log('W', wrapper)
   })
 })
 describe('fetch Tests', () => {

@@ -35,6 +35,8 @@
   },
   "devDependencies": {
     "assert": "^2.0.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "mocha": "^6.2.1",
     "redux-logger": "^3.0.6"
   }
