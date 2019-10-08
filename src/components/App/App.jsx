@@ -14,17 +14,21 @@ import {
   viewPersonsArray
 } from '../../reducers/personReducer'
 import endpoints from '../../endpoints'
+import utils from '../../utils'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      numToLoad: 90
+      numToLoad: 66,
+      increment: 30,
+      currentCount: 0,
+      lastCount: 0
     }
   }
   componentDidMount() {
-    console.log('this', this)
-    const { fetchPeople } = this.props
+    // console.log('this', this)
+    // const { fetchPeople } = this.props
     this.callFetch()
   }
   callFetch() {
@@ -42,12 +46,89 @@ class App extends Component {
       i++
     }
   }
+  paginateDown(arr) {
+    console.log('down', arr)
+    let sliceEnd = this.state.currentCount - this.state.increment
 
+    if (sliceEnd < arr.length) return
+
+    let count = sliceEnd - this.state.increment
+    console.log('end', count)
+    // let indexes = utils.range(sliceStart + 1, count + 1, 1)
+    let chunk = arr.slice(count, sliceEnd)
+    console.log('chunk', chunk)
+    this.setState({
+      currentCount: sliceEnd,
+      lastCount: count
+    })
+  }
+  paginateUp(arr) {
+    console.log(arr)
+    //increment and get current count
+    let count = this.state.currentCount + this.state.increment
+    // console.log('count', count)
+    let sliceStart = count - this.state.increment
+    console.log('start', sliceStart)
+    let sliceEnd = count
+    if (sliceEnd > arr.length) return
+    console.log('end', sliceEnd)
+    // let indexes = utils.range(sliceStart + 1, sliceEnd + 1, 1)
+    let chunk = arr.slice(sliceStart, sliceEnd)
+    console.log('chunk', chunk)
+    this.setState({
+      currentCount: count,
+      lastCount: sliceEnd
+    })
+    // if (utils.checkRoute('comments')) {
+    //   return {
+    //     chunkComments: chunk,
+    //     counter: count,
+    //     indexes: indexes
+    //   }
+    // } else if (utils.checkRoute('personUp')) {
+    //   console.log('chunk', chunk)
+    //   return {
+    //     chunkShowNew: chunk,
+    //     counter: count,
+    //     indexes: indexes
+    //   }
+    // } else {
+    //   return {
+    //     chunkData: chunk,
+    //     counter: count,
+    //     indexes: indexes
+    //   }
+    // }
+  }
+  testRender(props, dir) {
+    if (props.viewPersonsArray) {
+      if (dir === 'up') {
+        return this.paginateUp(props.viewPersonsArray)
+      } else if (dir === 'down') {
+        console.log('here')
+        return this.paginateDown(props.viewPersonsArray)
+      }
+    }
+    return null
+  }
   render() {
     console.log('props', this.props)
     return (
       <div className="App">
-        <button>Test redux action</button>
+        <button
+          onClick={() => {
+            this.testRender(this.props, 'up')
+          }}
+        >
+          Up
+        </button>
+        <button
+          onClick={() => {
+            this.testRender(this.props, 'down')
+          }}
+        >
+          Down
+        </button>
         <pre>{JSON.stringify(this.props)}</pre>
       </div>
     )
