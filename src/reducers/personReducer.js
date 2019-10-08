@@ -39,7 +39,7 @@ export function personReducer(state = initialState, action) {
       return {
         ...state,
         currentPersonPending: false,
-        error: action.error
+        fetchCurrentPersonError: action.error
       }
     // re: allPersons: []
     case ADD_STARWARS_PERSON_SUCCESS:
@@ -58,9 +58,11 @@ export function personReducer(state = initialState, action) {
       }
     //  re: currentPersonAddedError
     case ADD_STARWARS_PERSON_ERROR:
+      console.log('HIHIHIH', action.error)
       return {
         ...state,
-        error: action.error
+        addPersonPending: false,
+        addPersonError: action.error
       }
     default:
       return state
@@ -71,7 +73,6 @@ export function personReducer(state = initialState, action) {
 
 // displays the current person being fetched
 export const fetchCurrentPersonSuccess = state => {
-  console.log('state', state)
   return state.personReducer.currentPerson
 }
 // displays true/false
@@ -84,7 +85,10 @@ export const fetchCurrentPersonError = state =>
 export const addPersonSuccess = state => state.personReducer.currentPerson
 export const addPersonPending = state => state.personReducer.addPersonPending
 // displays error
-export const addPersonError = state => state.personReducer.addPersonError
+export const addPersonError = state => {
+  console.log('state', state)
+  return state.personReducer.addPersonError
+}
 // returns persons array
 export const viewPersonsArray = state => state.personReducer.allPersons
 export default personReducer

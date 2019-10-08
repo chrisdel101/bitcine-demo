@@ -42,9 +42,10 @@ export function addStarWarsPersonPending(person) {
   }
 }
 export function addStarWarsPersonError(error) {
+  console.log('ERROR', error)
   return {
     type: ADD_STARWARS_PERSON_ERROR,
-    error
+    error: error
   }
 }
 // https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './index.css'
 // import Page from '../Page/Page.jsx'
-import fetchPeopleAction from '../../fetch'
+import { fetchPeople as fetchPeopleAction } from '../../fetch'
 import { bindActionCreators } from 'redux'
 import {
   fetchCurrentPersonSuccess,
@@ -25,6 +25,7 @@ class App extends Component {
     return (
       <div className="App">
         <button>Test redux action</button>
+        <pre>{JSON.stringify(this.props)}</pre>
       </div>
     )
   }
