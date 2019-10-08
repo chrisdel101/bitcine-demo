@@ -16,23 +16,31 @@ import {
 import endpoints from '../../endpoints'
 
 class App extends Component {
-  componentDidMount() {
-    const { fetchPeople } = this.props
-    function callFetch() {
-      let i = 1
-      while (i < 91) {
-        const test = `${endpoints.root}${endpoints.people(i)}`
-        fetchPeople(test)
-          .then(res => {
-            console.log('Response', res)
-          })
-          .catch(e => {
-            console.error('Error in API call', e)
-          })
-        i++
-      }
+  constructor(props) {
+    super(props)
+    this.state = {
+      numToLoad: 90
     }
-    callFetch()
+  }
+  componentDidMount() {
+    console.log('this', this)
+    const { fetchPeople } = this.props
+    this.callFetch()
+  }
+  callFetch() {
+    let i = 1
+    while (i < this.state.numToLoad) {
+      const test = `${endpoints.root}${endpoints.people(i)}`
+      this.props
+        .fetchPeople(test)
+        .then(res => {
+          console.log('Response', res)
+        })
+        .catch(e => {
+          console.error('Error in API call', e)
+        })
+      i++
+    }
   }
 
   render() {
