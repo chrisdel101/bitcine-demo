@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './index.css'
-// import Page from '../Page/Page.jsx'
+import Page from '../Page/Page.jsx'
 import { fetchPeople as fetchPeopleAction } from '../../fetch'
 import { bindActionCreators } from 'redux'
 import {
@@ -38,12 +38,22 @@ class App extends Component {
       this.props
         .fetchPeople(test)
         .then(res => {
-          console.log('Response', res)
+          // console.log('Response', res)
         })
         .catch(e => {
           console.error('Error in API call', e)
         })
       i++
+    }
+  }
+  handleClick(e) {
+    // icon component
+    if (e.target.classList.contains('icon')) {
+      if (e.target.innerHTML === 'arrow_forward_ios') {
+        console.log('forward')
+      } else if (e.target.innerHTML === 'arrow_back_ios') {
+        console.log('back')
+      }
     }
   }
   paginateDown(arr) {
@@ -112,24 +122,10 @@ class App extends Component {
     return null
   }
   render() {
-    console.log('props', this.props)
+    // console.log('props', this.props)
     return (
       <div className="App">
-        <button
-          onClick={() => {
-            this.testRender(this.props, 'up')
-          }}
-        >
-          Up
-        </button>
-        <button
-          onClick={() => {
-            this.testRender(this.props, 'down')
-          }}
-        >
-          Down
-        </button>
-        <pre>{JSON.stringify(this.props)}</pre>
+        <Page onClick={this.handleClick} />
       </div>
     )
   }
