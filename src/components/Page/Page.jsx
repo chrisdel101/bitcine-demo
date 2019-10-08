@@ -15,7 +15,10 @@ function Page(props) {
       <header>Starwar character demo</header>
       <main>
         <div className="character-conatiner">
-          <Table tableCols={props.tableCols} />
+          <Table
+            tableCols={props.tableCols}
+            persons={props.persons ? props.persons : null}
+          />
         </div>
       </main>
       <Icon iconName="arrow_forward_ios" size="md" onClick={props.onClick} />
