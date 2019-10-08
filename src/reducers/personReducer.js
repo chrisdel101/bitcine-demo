@@ -18,7 +18,7 @@ const initialState = {
 }
 
 export function personReducer(state = initialState, action) {
-  console.log('acton', action)
+  // console.log('acton', action)
   switch (action.type) {
     // re: fetchCurrentPersonPending: false,
     case FETCH_STARWARS_PERSON_PENDING:
@@ -28,7 +28,7 @@ export function personReducer(state = initialState, action) {
       }
     // re:   currentPerson: null
     case FETCH_STARWARS_PERSON_SUCCESS:
-      console.log('HELLO1', action.person)
+      // console.log('HELLO1', action.person)
       return {
         ...state,
         currentPersonPending: false,
@@ -43,7 +43,7 @@ export function personReducer(state = initialState, action) {
       }
     // re: allPersons: []
     case ADD_STARWARS_PERSON_SUCCESS:
-      console.log('HELLO2', action.person)
+      // console.log('HELLO2', action.person)
       return {
         ...state,
         addPersonPending: false,
@@ -86,7 +86,7 @@ export const addPersonSuccess = state => state.personReducer.currentPerson
 export const addPersonPending = state => state.personReducer.addPersonPending
 // displays error
 export const addPersonError = state => {
-  console.log('state', state)
+  // consol e.log('state', state)
   return state.personReducer.addPersonError
 }
 // returns persons array

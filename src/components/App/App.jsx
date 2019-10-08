@@ -13,11 +13,20 @@ import {
   addPersonPending,
   viewPersonsArray
 } from '../../reducers/personReducer'
+import endpoints from '../../endpoints'
 
 class App extends Component {
   componentDidMount() {
     const { fetchPeople } = this.props
-    fetchPeople()
+    function callFetch() {
+      let i = 1
+      while (i < 91) {
+        const test = `${endpoints.root}${endpoints.people(i)}`
+        console.log('res', fetchPeople(test))
+        i++
+      }
+    }
+    callFetch()
   }
 
   render() {
