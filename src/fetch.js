@@ -31,16 +31,13 @@ export function fetchPeople(url) {
       fetch(url)
         .then(res => res.json())
         .then(personRes => {
-          console.log('personRes', personRes)
-          console.log('DETAILS', personRes.detail === 'Not found')
+          // console.log('personRes', personRes)
+          // console.log('DETAILS', personRes.detail === 'Not found')
           if (personRes.detail === 'Not found') {
             console.error('REJECTED')
-            reject('rejected')
+            reject('rejected: no data found or 404')
             throw personRes.error
           }
-          dispatch(fetchStarWarsPersonSuccess(personRes))
-          // add to persons array here
-          dispatch(addStarWarsPersonSuccess(personRes))
           if (!addStarWarsPersonSuccess(personRes).person) {
             dispatch(
               addStarWarsPersonError(
@@ -49,10 +46,14 @@ export function fetchPeople(url) {
                 )
               )
             )
+            reject('rejected: no data found or 404')
+            throw personRes.error
           }
-          console.log('XXXX')
+          dispatch(fetchStarWarsPersonSuccess(personRes))
+          // add to persons array here
+          dispatch(addStarWarsPersonSuccess(personRes))
           resolve(personRes)
-          // return personRes
+          return personRes
         })
         .catch(error => {
           fetchStarWarsPersonError(error)

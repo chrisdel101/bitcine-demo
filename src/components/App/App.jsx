@@ -19,18 +19,15 @@ class App extends Component {
   componentDidMount() {
     const { fetchPeople } = this.props
     function callFetch() {
-      let i = 90
-      while (i < 92) {
+      let i = 1
+      while (i < 91) {
         const test = `${endpoints.root}${endpoints.people(i)}`
-        console.log('PROM', fetchPeople(test))
         fetchPeople(test)
           .then(res => {
-            console.log('RES', res)
-            if (!res) console.error('HERERHERE')
+            console.log('Response', res)
           })
           .catch(e => {
-            console.error('Break')
-            i = 92
+            console.error('Error in API call', e)
           })
         i++
       }
