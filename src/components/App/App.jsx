@@ -65,12 +65,13 @@ class App extends Component {
       })
     } else {
       let arr = state.fullData
-      let newState = this.paginate(arr)
-      console.log('new', newState)
-      this.setState({
-        chunkData: newState,
-        counter: newState.counter
-      })
+      let newState = this.paginateUp(arr)
+      console.log('NEW', newState)
+      // console.log('new', newState)
+      // this.setState({
+      //   chunkData: newState,
+      //   counter: newState.counter
+      // })
     }
   }
   paginateUp(arr) {
@@ -150,7 +151,7 @@ class App extends Component {
     console.log('props', this.props)
     return (
       <div className="App">
-        <button onClick={() => this.testRender(this.props)}>Test</button>
+        <button onClick={() => this.updatePageState(this.state)}>Test</button>
         <pre>{JSON.stringify(this.props)}</pre>
       </div>
     )
