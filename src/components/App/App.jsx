@@ -23,28 +23,37 @@ class App extends Component {
       numToLoad: 66,
       increment: 30,
       currentCount: 0,
-      lastCount: 0
+      lastCount: 0,
+      currentPersonsChunk: null,
+      tableCols: ['Name', 'Birth Year', 'Height', 'Mass']
     }
   }
   componentDidMount() {
     // console.log('this', this)
     // const { fetchPeople } = this.props
     this.callFetch()
+    // use a timer for now :(
+    setTimeout(() => {
+      // load first set on load
+      this.paginateUp(this.props.viewPersonsArray)
+    }, 2500)
   }
   callFetch() {
-    let i = 1
-    while (i < this.state.numToLoad) {
-      const test = `${endpoints.root}${endpoints.people(i)}`
-      this.props
-        .fetchPeople(test)
-        .then(res => {
-          // console.log('Response', res)
-        })
-        .catch(e => {
-          console.error('Error in API call', e)
-        })
-      i++
-    }
+    return new Promise((resolve, reject) => {
+      let i = 0
+      while (i < this.state.numToLoad) {
+        const test = `${endpoints.root}${endpoints.people(i)}`
+        this.props
+          .fetchPeople(test)
+          .then(res => {})
+          .catch(e => {
+            console.error('Error in API call', e)
+          })
+        i++
+      }
+    }).finally(() => {
+      console.log('done')
+    })
   }
   handleClick(e) {
     // icon component
@@ -69,7 +78,8 @@ class App extends Component {
     console.log('chunk', chunk)
     this.setState({
       currentCount: sliceEnd,
-      lastCount: count
+      lastCount: count,
+      currentPersonsChunk: chunk
     })
   }
   paginateUp(arr) {
@@ -87,7 +97,8 @@ class App extends Component {
     console.log('chunk', chunk)
     this.setState({
       currentCount: count,
-      lastCount: sliceEnd
+      lastCount: sliceEnd,
+      currentPersonsChunk: chunk
     })
     // if (utils.checkRoute('comments')) {
     //   return {
@@ -125,7 +136,15 @@ class App extends Component {
     // console.log('props', this.props)
     return (
       <div className="App">
-        <Page onClick={this.handleClick} />
+        <Page
+          onClick={this.handleClick}
+          persons={
+            this.state.currentPersonsChunk
+              ? this.state.currentPersonsChunk
+              : null
+          }
+          tableCols={this.state.tableCols}
+        />
       </div>
     )
   }
