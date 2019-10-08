@@ -19,10 +19,18 @@ class App extends Component {
   componentDidMount() {
     const { fetchPeople } = this.props
     function callFetch() {
-      let i = 1
-      while (i < 91) {
+      let i = 92
+      while (i < 94) {
         const test = `${endpoints.root}${endpoints.people(i)}`
-        console.log('res', fetchPeople(test))
+        console.log('PROM', fetchPeople(test))
+        fetchPeople(test)
+          .then(res => {
+            console.log('RES', res)
+            if (!res) console.error('HERERHERE')
+          })
+          .catch(e => {
+            console.error('Error in App')
+          })
         i++
       }
     }
