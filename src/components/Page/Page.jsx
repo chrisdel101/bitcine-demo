@@ -20,9 +20,12 @@ function renderMarkup(props) {
       />
     )
   }
-  // if (utils.checkRoute('/person')) {
-  return <PersonMarkup personsData={props.personsData} />
-  // }
+  const url = new URL(window.location)
+  if (url.hash.includes('/person')) {
+    if (utils.checkForParams(url.hash)) {
+      return <PersonMarkup personsData={props.personsData} />
+    }
+  }
 }
 
 function Page(props) {

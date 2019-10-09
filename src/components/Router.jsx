@@ -19,7 +19,7 @@ function Router(props) {
           )}
         />
         <Route
-          path="#/person/:person-slug"
+          path="/person/:personslug"
           component={() => (
             <Page
               personsData={props.personsData ? props.personsData : null}

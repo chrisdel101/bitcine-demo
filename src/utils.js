@@ -13,7 +13,17 @@ function checkRoute(routeName) {
   console.log('hash', hash)
   return hash === routeName ? true : false
 }
+function checkForParams(hash) {
+  // const
+  console.log('hash', hash)
+  var re = /^#\/[\w]+\/[\w]+/
+  if (re.test(hash)) {
+    return true
+  }
+  return false
+}
 module.exports = {
+  checkForParams,
   range,
   checkRoute
 }
