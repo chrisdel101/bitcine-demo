@@ -16,6 +16,7 @@ function checkRoute(routeName) {
 function checkForParams(hash) {
   // const
   console.log('hash', hash)
+  // works only for create react app with # in route
   var re = /^#\/[\w]+\/[\w]+/
   if (re.test(hash)) {
     return true

@@ -15,15 +15,18 @@ function renderMarkup(props) {
     return (
       <IndexMarkup
         personsData={props.personsData}
-        tableCols={props.tableCols}
+        indexTableCols={props.indexTableCols}
         onClick={props.onClick}
+        route={props.route}
       />
     )
   }
   const url = new URL(window.location)
   if (url.hash.includes('/person')) {
     if (utils.checkForParams(url.hash)) {
-      return <PersonMarkup personsData={props.personsData} />
+      return (
+        <PersonMarkup personsData={props.personsData} route={props.route} />
+      )
     }
   }
 }

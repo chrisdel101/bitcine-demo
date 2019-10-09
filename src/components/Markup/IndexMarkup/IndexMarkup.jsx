@@ -8,7 +8,7 @@ function IndexMarkup(props) {
     <React.Fragment>
       <Main
         personsData={props.personsData}
-        tableCols={props.tableCols}
+        indexTableCols={props.indexTableCols}
         onClick={props.onClick}
       />
       <Icon iconName="arrow_forward_ios" size="md" onClick={props.onClick} />

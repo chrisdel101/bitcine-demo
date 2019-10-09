@@ -25,7 +25,22 @@ class App extends Component {
       currentCount: 0,
       lastCount: 0,
       currentPersonsChunk: null,
-      tableCols: ['Name', 'Birth Year', 'Height', 'Mass'],
+      indexTableCols: ['Name', 'Birth Year', 'Height', 'Mass'],
+      personTableCols: [
+        'Name',
+        'Birth Year',
+        'Height',
+        'Mass',
+        'Hair Color',
+        'Eye Color',
+        'Gender',
+        'Films',
+        'Homeworld',
+        'Skin Color',
+        'Species',
+        'Starship',
+        'Vehicles'
+      ],
       currentPersonObj: null
     }
     this.handleClick = this.handleClick.bind(this)
@@ -154,7 +169,7 @@ class App extends Component {
               ? this.state.currentPersonsChunk
               : null
           }
-          tableCols={this.state.tableCols}
+          indexTableCols={this.state.indexTableCols}
         />
       </div>
     )

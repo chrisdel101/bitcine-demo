@@ -9,7 +9,7 @@ function PersonMarkup(props) {
       PERSON
       {/* <Main
         personsData={props.personsData}
-        tableCols={props.tableCols}
+        indexTableCols={props.indexTableCols}
         onClick={props.onClick}
       />
       <Icon iconName="arrow_forward_ios" size="md" onClick={props.onClick} />

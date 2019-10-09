@@ -14,7 +14,8 @@ function Router(props) {
             <Page
               personsData={props.personsData ? props.personsData : null}
               onClick={props.onClick}
-              tableCols={props.tableCols}
+              indexTableCols={props.indexTableCols}
+              route="index"
             />
           )}
         />
@@ -24,7 +25,8 @@ function Router(props) {
             <Page
               personsData={props.personsData ? props.personsData : null}
               onClick={props.onClick}
-              tableCols={props.tableCols}
+              indexTableCols={props.indexTableCols}
+              route="person/:personslug"
             />
           )}
         />

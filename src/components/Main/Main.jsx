@@ -7,7 +7,7 @@ function Main(props) {
     <main className="Main">
       <div className="character-conatiner">
         <Table
-          tableCols={props.tableCols}
+          indexTableCols={props.indexTableCols}
           personsData={props.personsData ? props.personsData : null}
           onClick={props.onClick}
         />
