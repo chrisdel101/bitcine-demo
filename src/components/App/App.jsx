@@ -20,7 +20,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      numToLoad: 30,
+      numToLoad: 33,
       increment: 10,
       currentCount: 0,
       lastCount: 0,
@@ -41,7 +41,7 @@ class App extends Component {
         'Starship',
         'Vehicles'
       ],
-      currentPersonObj: null
+      currentPersonObj: 'No Character Chosen'
     }
     this.handleClick = this.handleClick.bind(this)
   }
@@ -52,15 +52,16 @@ class App extends Component {
     // use a timer for now :(
     setTimeout(() => {
       // load first set on load
-      console.log(this.props.viewPersonsArray)
+      console.log('props', this.props.viewPersonsArray)
       this.paginateUp(this.props.viewPersonsArray)
-    }, 4000)
+    }, 5000)
   }
   callFetch() {
     return new Promise((resolve, reject) => {
-      let i = 0
-      while (i < this.state.numToLoad) {
-        const test = `${endpoints.root}${endpoints.people(i)}`
+      let i = 1
+      while (i < this.state.numToLoad + 1) {
+        const test = `${endpoints.root}${endpoints.people(i)}/`
+        console.log('ca', test)
         this.props
           .fetchPeople(test)
           .then(res => {})
@@ -170,6 +171,8 @@ class App extends Component {
               : null
           }
           indexTableCols={this.state.indexTableCols}
+          personTableCols={this.state.personTableCols}
+          currentPersonObj={this.state.currentPersonObj}
         />
       </div>
     )

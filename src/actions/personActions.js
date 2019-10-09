@@ -11,7 +11,7 @@ export function fetchStarWarsPersonPending() {
   }
 }
 export function fetchStarWarsPersonSuccess(person) {
-  // console.log('pers', person)
+  console.log('pers', person)
   return {
     type: FETCH_STARWARS_PERSON_SUCCESS,
     person: {

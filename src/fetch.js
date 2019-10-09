@@ -24,14 +24,16 @@ import endpoints from './endpoints'
 // 		}, 2000)
 // 	})
 export function fetchPeople(url) {
-  // const test = `${endpoints.root}${endpoints.people(1)}`
   return dispatch => {
     return new Promise((resolve, reject) => {
       dispatch(fetchStarWarsPersonPending())
       fetch(url)
-        .then(res => res.json())
+        .then(res => {
+          console.log(res)
+          return res.json()
+        })
         .then(personRes => {
-          // console.log('personRes', personRes)
+          console.log('personRes', personRes)
           // console.log('DETAILS', personRes.detail === 'Not found')
           if (personRes.detail === 'Not found') {
             console.error('REJECTED')

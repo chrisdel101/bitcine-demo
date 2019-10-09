@@ -15,6 +15,7 @@ function renderMarkup(props) {
     return (
       <IndexMarkup
         personsData={props.personsData}
+        personTableCols={props.personTableCols}
         indexTableCols={props.indexTableCols}
         onClick={props.onClick}
         route={props.route}
@@ -25,7 +26,14 @@ function renderMarkup(props) {
   if (url.hash.includes('/person')) {
     if (utils.checkForParams(url.hash)) {
       return (
-        <PersonMarkup personsData={props.personsData} route={props.route} />
+        <PersonMarkup
+          currentPersonObj={props.currentPersonObj}
+          personsData={props.personsData}
+          personTableCols={props.personTableCols}
+          indexTableCols={props.indexTableCols}
+          onClick={props.onClick}
+          route={props.route}
+        />
       )
     }
   }

@@ -24,9 +24,11 @@ function Router(props) {
           component={() => (
             <Page
               personsData={props.personsData ? props.personsData : null}
-              onClick={props.onClick}
               indexTableCols={props.indexTableCols}
+              onClick={props.onClick}
               route="person/:personslug"
+              personTableCols={props.personTableCols}
+              currentPersonObj={props.currentPersonObj}
             />
           )}
         />
