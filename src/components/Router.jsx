@@ -1,9 +1,9 @@
 import React from 'react'
-import { HashRouter, Route, Link } from 'react-router-dom'
+import { HashRouter, Route } from 'react-router-dom'
 import Page from './Page/Page.jsx'
 
 function Router(props) {
-  //   console.log('roueter', props)
+  // const url = new URL(window.location)
   return (
     <HashRouter basename={process.env.PUBLIC_URL}>
       <div>
@@ -19,8 +19,7 @@ function Router(props) {
           )}
         />
         <Route
-          exact
-          path="/person/:id"
+          path="#/person/:person-slug"
           component={() => (
             <Page
               personsData={props.personsData ? props.personsData : null}

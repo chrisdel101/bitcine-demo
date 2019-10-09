@@ -7,10 +7,10 @@ function range(start, stop, step) {
 // check if this route
 function checkRoute(routeName) {
   // works for both dev and prod
-  routeName = `#/${routeName}`
-  // console.log('route', routeName)
+  routeName = `#${routeName}`
+  console.log('route', routeName)
   let hash = window.location.hash
-  // console.log('hash', hash)
+  console.log('hash', hash)
   return hash === routeName ? true : false
 }
 module.exports = {

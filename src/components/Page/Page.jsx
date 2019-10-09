@@ -2,11 +2,28 @@ import React from 'react'
 import './index.css'
 import Table from '../Table/Table.jsx'
 // import Header from '../Header/Header.jsx'
-import Main from '../Main/Main.jsx'
-import Icon from '../Material/Icon/Icon.jsx'
-// import utils from '../../fetch'
+import IndexMarkup from '../Markup/IndexMarkup/IndexMarkup.jsx'
+import utils from '../../utils'
 // import endpoints from '../../endpoints'
 import { useState } from 'react'
+import PersonMarkup from '../Markup/PersonMarkup/PersonMarkup'
+
+function renderMarkup(props) {
+  if (!props.personsData) return null
+  console.log(props)
+  if (utils.checkRoute('/')) {
+    return (
+      <IndexMarkup
+        personsData={props.personsData}
+        tableCols={props.tableCols}
+        onClick={props.onClick}
+      />
+    )
+  }
+  // if (utils.checkRoute('/person')) {
+  return <PersonMarkup personsData={props.personsData} />
+  // }
+}
 
 function Page(props) {
   if (!props.personsData) return null
@@ -14,13 +31,7 @@ function Page(props) {
   return (
     <div className="Page">
       <header>Starwar character demo</header>
-      <Main
-        personsData={props.personsData}
-        tableCols={props.tableCols}
-        onClick={props.onClick}
-      />
-      <Icon iconName="arrow_forward_ios" size="md" onClick={props.onClick} />
-      <Icon iconName="arrow_back_ios" size="md" onClick={props.onClick} />
+      {renderMarkup(props)}
     </div>
   )
 }

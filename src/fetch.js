@@ -31,7 +31,7 @@ export function fetchPeople(url) {
       fetch(url)
         .then(res => res.json())
         .then(personRes => {
-          console.log('personRes', personRes)
+          // console.log('personRes', personRes)
           // console.log('DETAILS', personRes.detail === 'Not found')
           if (personRes.detail === 'Not found') {
             console.error('REJECTED')

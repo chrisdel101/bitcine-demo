@@ -14,6 +14,7 @@ import {
   viewPersonsArray
 } from '../../reducers/personReducer'
 import endpoints from '../../endpoints'
+import slugify from 'slugify'
 
 class App extends Component {
   constructor(props) {
@@ -24,7 +25,8 @@ class App extends Component {
       currentCount: 0,
       lastCount: 0,
       currentPersonsChunk: null,
-      tableCols: ['Name', 'Birth Year', 'Height', 'Mass']
+      tableCols: ['Name', 'Birth Year', 'Height', 'Mass'],
+      currentPersonObj: null
     }
     this.handleClick = this.handleClick.bind(this)
   }
@@ -44,7 +46,6 @@ class App extends Component {
       let i = 0
       while (i < this.state.numToLoad) {
         const test = `${endpoints.root}${endpoints.people(i)}`
-        console.log('here')
         this.props
           .fetchPeople(test)
           .then(res => {})
@@ -69,12 +70,21 @@ class App extends Component {
         this.paginateDown(this.props.viewPersonsArray)
       }
     } else if (e.target.classList.contains('person-name-cell')) {
-      const personNameKey = e.target.innerHTML
-      const personObj = this.props.viewPersonsArray.find(person => {
-        return Object.keys(person)[0] === personNameKey
-      })
-      console.log(personObj)
+      this.renderPersonPage(e)
     }
+  }
+  renderPersonPage(e) {
+    const personNameKey = e.target.innerHTML
+    const personObj = this.props.viewPersonsArray.find(person => {
+      return Object.keys(person)[0] === personNameKey
+    })
+    const personSlug = slugify(personNameKey).toLowerCase()
+    console.log(personObj)
+    console.log(personSlug)
+    this.setState({
+      currentPersonObj: personObj
+    })
+    window.location = `#/person/${personSlug}`
   }
   paginateDown(arr) {
     console.log('down', arr)
@@ -133,17 +143,6 @@ class App extends Component {
     //   }
     // }
   }
-  testRender(props, dir) {
-    if (props.viewPersonsArray) {
-      if (dir === 'up') {
-        return this.paginateUp(props.viewPersonsArray)
-      } else if (dir === 'down') {
-        console.log('here')
-        return this.paginateDown(props.viewPersonsArray)
-      }
-    }
-    return null
-  }
   render() {
     // console.log('props', this.state)
     return (
@@ -157,15 +156,6 @@ class App extends Component {
           }
           tableCols={this.state.tableCols}
         />
-        {/* <Page
-          onClick={this.handleClick}
-          personsData={
-            this.state.currentPersonsChunk
-              ? this.state.currentPersonsChunk
-              : null
-          }
-          tableCols={this.state.tableCols}
-        /> */}
       </div>
     )
   }
