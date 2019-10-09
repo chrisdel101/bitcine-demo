@@ -1,9 +1,18 @@
 import React from 'react'
 import './index.css'
-// import Page from './Page/Page.jsx'
+import Table from '../Table/Table.jsx'
 
-function Main() {
-  return <div className="Main">Main</div>
+function Main(props) {
+  return (
+    <main className="Main">
+      <div className="character-conatiner">
+        <Table
+          tableCols={props.tableCols}
+          personsData={props.personsData ? props.personsData : null}
+        />
+      </div>
+    </main>
+  )
 }
 
 export default Main

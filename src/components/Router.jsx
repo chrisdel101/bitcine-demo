@@ -1,2 +1,83 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+import React from 'react'
+import {
+  HashRouter,
+  BrowserRouter,
+  Route,
+  Link,
+  Switch
+} from 'react-router-dom'
+import Page from '../Page/Page.jsx'
+
+function Router() {
+  return (
+    <HashRouter basename={process.env.PUBLIC_URL}>
+      <div>
+        <Route
+          exact
+          path="/"
+          component={() => (
+            <Page
+              data={utils.fetchData(
+                'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty'
+              )}
+            />
+          )}
+        />
+        <Route
+          path="/newest"
+          component={() => (
+            <Page
+              data={utils.fetchData(
+                'https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty'
+              )}
+            />
+          )}
+        />
+        <Route
+          path="/show"
+          component={() => (
+            <Page
+              data={utils.fetchData(
+                'https://hacker-news.firebaseio.com/v0/showstories.json?print=pretty'
+              )}
+            />
+          )}
+        />
+        <Route path="/shownew" component={Page} />
+        <Route
+          path="/ask"
+          component={() => (
+            <Page
+              data={utils.fetchData(
+                'https://hacker-news.firebaseio.com/v0/askstories.json?print=pretty'
+              )}
+            />
+          )}
+        />
+        <Route
+          path="/jobs"
+          component={() => (
+            <Page
+              data={utils.fetchData(
+                'https://hacker-news.firebaseio.com/v0/jobstories.json?print=pretty'
+              )}
+            />
+          )}
+        />
+        <Route path="/comments" component={Page} />
+        <Route
+          path="/best"
+          component={() => (
+            <Page
+              data={utils.fetchData(
+                'https://hacker-news.firebaseio.com/v0/beststories.json?print=pretty'
+              )}
+            />
+          )}
+        />
+      </div>
+    </HashRouter>
+  )
+}
+
+export default Router

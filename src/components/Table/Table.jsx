@@ -1,7 +1,8 @@
 import React from 'react'
 
 function Table(props) {
-  if (!props.personsData) return null
+  console.log('props', props)
+  if (!props.personsData || !props.tableCols) return null
   return (
     <table className="table table-striped">
       <thead>

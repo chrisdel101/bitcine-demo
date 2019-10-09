@@ -14,7 +14,6 @@ import {
   viewPersonsArray
 } from '../../reducers/personReducer'
 import endpoints from '../../endpoints'
-import utils from '../../utils'
 
 class App extends Component {
   constructor(props) {
