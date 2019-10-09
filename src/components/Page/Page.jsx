@@ -17,7 +17,7 @@ function Page(props) {
         <div className="character-conatiner">
           <Table
             tableCols={props.tableCols}
-            persons={props.persons ? props.persons : null}
+            personsData={props.personsData ? props.personsData : null}
           />
         </div>
       </main>

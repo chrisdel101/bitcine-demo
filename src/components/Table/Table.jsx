@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Table(props) {
-  if (!props.persons) return null
+  if (!props.personsData) return null
   return (
     <table className="table table-striped">
       <thead>
@@ -16,29 +16,20 @@ function Table(props) {
         </tr>
       </thead>
       <tbody>
-        {props.persons
-          ? props.persons.map((person, i) => {
+        {props.personsData
+          ? props.personsData.map((person, i) => {
+              //   console.log('person', person)
               const personKey = Object.keys(person)[0]
-              //   console.log(person)
               return (
-                <tr>
-                  <td key={i}>{person[personKey].name}</td>
+                <tr key={i}>
+                  <td>{person[personKey].name}</td>
+                  <td>{person[personKey].birth_year}</td>
+                  <td>{person[personKey].height}</td>
+                  <td>{person[personKey].mass}</td>
                 </tr>
               )
             })
           : null}
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
       </tbody>
     </table>
   )

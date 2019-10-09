@@ -21,12 +21,13 @@ class App extends Component {
     super(props)
     this.state = {
       numToLoad: 66,
-      increment: 30,
+      increment: 10,
       currentCount: 0,
       lastCount: 0,
       currentPersonsChunk: null,
       tableCols: ['Name', 'Birth Year', 'Height', 'Mass']
     }
+    this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
     // console.log('this', this)
@@ -36,7 +37,7 @@ class App extends Component {
     setTimeout(() => {
       // load first set on load
       this.paginateUp(this.props.viewPersonsArray)
-    }, 2500)
+    }, this.state.numToLoad * 37)
   }
   callFetch() {
     return new Promise((resolve, reject) => {
@@ -59,18 +60,19 @@ class App extends Component {
     // icon component
     if (e.target.classList.contains('icon')) {
       if (e.target.innerHTML === 'arrow_forward_ios') {
-        console.log('forward')
+        this.paginateUp(this.props.viewPersonsArray)
       } else if (e.target.innerHTML === 'arrow_back_ios') {
         console.log('back')
+        this.paginateDown(this.props.viewPersonsArray)
       }
     }
   }
   paginateDown(arr) {
     console.log('down', arr)
     let sliceEnd = this.state.currentCount - this.state.increment
-
-    if (sliceEnd < arr.length) return
-
+    console.log('end', sliceEnd)
+    // don't allow decrement pass list end
+    if (sliceEnd <= 0) return
     let count = sliceEnd - this.state.increment
     console.log('end', count)
     // let indexes = utils.range(sliceStart + 1, count + 1, 1)
@@ -82,15 +84,16 @@ class App extends Component {
       currentPersonsChunk: chunk
     })
   }
+  // pass in full state array
   paginateUp(arr) {
     console.log(arr)
     //increment and get current count
     let count = this.state.currentCount + this.state.increment
-    // console.log('count', count)
+    console.log('count', count)
     let sliceStart = count - this.state.increment
     console.log('start', sliceStart)
     let sliceEnd = count
-    if (sliceEnd > arr.length) return
+    if (sliceEnd > this.props.viewPersonsArray.length) return
     console.log('end', sliceEnd)
     // let indexes = utils.range(sliceStart + 1, sliceEnd + 1, 1)
     let chunk = arr.slice(sliceStart, sliceEnd)
@@ -138,7 +141,7 @@ class App extends Component {
       <div className="App">
         <Page
           onClick={this.handleClick}
-          persons={
+          personsData={
             this.state.currentPersonsChunk
               ? this.state.currentPersonsChunk
               : null
