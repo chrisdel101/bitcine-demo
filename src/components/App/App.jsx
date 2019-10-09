@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './index.css'
-import Page from '../Page/Page.jsx'
+import Router from '../Router.jsx'
 import { fetchPeople as fetchPeopleAction } from '../../fetch'
 import { bindActionCreators } from 'redux'
 import {
@@ -19,7 +19,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      numToLoad: 66,
+      numToLoad: 30,
       increment: 10,
       currentCount: 0,
       lastCount: 0,
@@ -35,8 +35,9 @@ class App extends Component {
     // use a timer for now :(
     setTimeout(() => {
       // load first set on load
+      console.log(this.props.viewPersonsArray)
       this.paginateUp(this.props.viewPersonsArray)
-    }, this.state.numToLoad * 37)
+    }, 4000)
   }
   callFetch() {
     return new Promise((resolve, reject) => {
@@ -135,10 +136,10 @@ class App extends Component {
     return null
   }
   render() {
-    // console.log('props', this.props)
+    // console.log('props', this.state)
     return (
       <div className="App">
-        <Page
+        <Router
           onClick={this.handleClick}
           personsData={
             this.state.currentPersonsChunk
@@ -147,6 +148,15 @@ class App extends Component {
           }
           tableCols={this.state.tableCols}
         />
+        {/* <Page
+          onClick={this.handleClick}
+          personsData={
+            this.state.currentPersonsChunk
+              ? this.state.currentPersonsChunk
+              : null
+          }
+          tableCols={this.state.tableCols}
+        /> */}
       </div>
     )
   }

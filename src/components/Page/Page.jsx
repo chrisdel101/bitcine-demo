@@ -9,6 +9,7 @@ import Icon from '../Material/Icon/Icon.jsx'
 import { useState } from 'react'
 
 function Page(props) {
+  console.log('props', props)
   if (!props.personsData) return null
   // const [peopleCount, setCount] = useState(0)
   return (
