@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Table(props) {
-  console.log('props', props)
+  //   console.log('props', props)
   if (!props.personsData || !props.tableCols) return null
   return (
     <table className="table table-striped">
@@ -23,7 +23,9 @@ function Table(props) {
               const personKey = Object.keys(person)[0]
               return (
                 <tr key={i}>
-                  <td>{person[personKey].name}</td>
+                  <td onClick={props.onClick} className="person-name-cell">
+                    {person[personKey].name}
+                  </td>
                   <td>{person[personKey].birth_year}</td>
                   <td>{person[personKey].height}</td>
                   <td>{person[personKey].mass}</td>

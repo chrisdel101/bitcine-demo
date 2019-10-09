@@ -9,6 +9,7 @@ function Main(props) {
         <Table
           tableCols={props.tableCols}
           personsData={props.personsData ? props.personsData : null}
+          onClick={props.onClick}
         />
       </div>
     </main>

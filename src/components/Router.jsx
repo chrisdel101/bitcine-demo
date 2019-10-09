@@ -18,6 +18,17 @@ function Router(props) {
             />
           )}
         />
+        <Route
+          exact
+          path="/person/:id"
+          component={() => (
+            <Page
+              personsData={props.personsData ? props.personsData : null}
+              onClick={props.onClick}
+              tableCols={props.tableCols}
+            />
+          )}
+        />
       </div>
     </HashRouter>
   )

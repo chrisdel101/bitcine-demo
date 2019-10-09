@@ -9,13 +9,16 @@ import Icon from '../Material/Icon/Icon.jsx'
 import { useState } from 'react'
 
 function Page(props) {
-  console.log('props', props)
   if (!props.personsData) return null
   // const [peopleCount, setCount] = useState(0)
   return (
     <div className="Page">
       <header>Starwar character demo</header>
-      <Main personsData={props.personsData} tableCols={props.tableCols} />
+      <Main
+        personsData={props.personsData}
+        tableCols={props.tableCols}
+        onClick={props.onClick}
+      />
       <Icon iconName="arrow_forward_ios" size="md" onClick={props.onClick} />
       <Icon iconName="arrow_back_ios" size="md" onClick={props.onClick} />
     </div>

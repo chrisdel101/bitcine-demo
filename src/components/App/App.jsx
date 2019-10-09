@@ -44,6 +44,7 @@ class App extends Component {
       let i = 0
       while (i < this.state.numToLoad) {
         const test = `${endpoints.root}${endpoints.people(i)}`
+        console.log('here')
         this.props
           .fetchPeople(test)
           .then(res => {})
@@ -57,6 +58,8 @@ class App extends Component {
     })
   }
   handleClick(e) {
+    console.log(e.target.innerHTML)
+    console.log(e.target.classList)
     // icon component
     if (e.target.classList.contains('icon')) {
       if (e.target.innerHTML === 'arrow_forward_ios') {
@@ -65,6 +68,12 @@ class App extends Component {
         console.log('back')
         this.paginateDown(this.props.viewPersonsArray)
       }
+    } else if (e.target.classList.contains('person-name-cell')) {
+      const personNameKey = e.target.innerHTML
+      const personObj = this.props.viewPersonsArray.find(person => {
+        return Object.keys(person)[0] === personNameKey
+      })
+      console.log(personObj)
     }
   }
   paginateDown(arr) {
