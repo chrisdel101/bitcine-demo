@@ -83,7 +83,7 @@ function Table(props) {
           </tr>
           <tr>
             <td>Homeworld</td>
-            <td>{person.homeworld}</td>
+            <td>{props.planetData.name}</td>
           </tr>
           <tr>
             <td>Skin Color</td>

@@ -23,6 +23,11 @@ import {
   // addFilmPending,
   allFilms
 } from '../../reducers/filmReducer'
+import {
+  fetchCurrentPlanetSuccess,
+  fetchCurrentPlanetPending,
+  fetchCurrentPlanetError
+} from '../../reducers/planetReducer'
 import endpoints from '../../endpoints'
 import slugify from 'slugify'
 
@@ -174,6 +179,11 @@ class App extends Component {
               : null
           }
           filmsData={this.props.allFilms.length ? this.props.allFilms : null}
+          planetData={
+            this.props.fetchCurrentPlanetSuccess
+              ? this.props.fetchCurrentPlanetSuccess
+              : null
+          }
           personsData={
             this.props.fetchCurrentPersonsArrSuccess
               ? this.props.fetchCurrentPersonsArrSuccess
@@ -188,19 +198,25 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
+  // persons
   fetchCurrentPersonSuccess: fetchCurrentPersonSuccess(state),
   fetchCurrentPersonPending: fetchCurrentPersonPending(state),
   fetchCurrentPersonError: fetchCurrentPersonError(state),
   fetchCurrentPersonsArrSuccess: fetchCurrentPersonsArrSuccess(state),
   fetchCurrentPersonsArrError: fetchCurrentPersonsArrError(state),
   fetchCurrentPersonsArrPending: fetchCurrentPersonsArrPending(state),
+  // films
   fetchCurrentFilmSuccess: fetchCurrentFilmSuccess(state),
   fetchCurrentFilmPending: fetchCurrentFilmPending(state),
   fetchCurrentFilmError: fetchCurrentFilmError(state),
   addFilmSuccess: addFilmSuccess(state),
   // addFilmError: addFilmError(state),
   // addFilmPending: addFilmPending(state),
-  allFilms: allFilms(state)
+  allFilms: allFilms(state),
+  // planets
+  fetchCurrentPlanetSuccess: fetchCurrentPlanetSuccess(state),
+  fetchCurrentPlanetPending: fetchCurrentPlanetPending(state),
+  fetchCurrentPlanetError: fetchCurrentPlanetError(state)
 })
 // takes the fetchPerson call and dispatches it
 const mapDispatchToProps = dispatch =>

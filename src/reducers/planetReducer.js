@@ -40,7 +40,7 @@ export function planetReducer(state = initialState, action) {
   }
 }
 // displays the current person being fetched
-export const fetchCurrentFilmSuccess = state => {
+export const fetchCurrentPlanetSuccess = state => {
   return state.planetReducer.currentPlanetFetched
 }
 // displays true/false

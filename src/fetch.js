@@ -114,9 +114,10 @@ export function fetchPlanet(planetUrl, dispatch) {
         if (utils.isObjEmpty(response)) {
           console.error('Promise REJECTED')
           console.error('Error: Empty planet response')
-          dispatch(fetchStarWarsPlanetError(new Error('Error in fetchFilm()')))
-          // }
-          return reject('error in fetchFilm() or 404')
+          dispatch(
+            fetchStarWarsPlanetError(new Error('Error in fetchPlanet()'))
+          )
+          return reject('error in fetchPlanet() or 404')
         }
 
         dispatch(fetchStarWarsPlanetSuccess(response))

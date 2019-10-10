@@ -1,11 +1,9 @@
 import React from 'react'
 import './index.css'
-import Table from '../Table/Table.jsx'
 // import Header from '../Header/Header.jsx'
 import IndexMarkup from '../Markup/IndexMarkup/IndexMarkup.jsx'
 import utils from '../../utils'
 // import endpoints from '../../endpoints'
-import { useState } from 'react'
 import PersonMarkup from '../Markup/PersonMarkup/PersonMarkup'
 
 function renderMarkup(props) {
@@ -28,6 +26,7 @@ function renderMarkup(props) {
     if (utils.checkForParams(url.hash)) {
       return (
         <PersonMarkup
+          planetData={props.planetData}
           filmsData={props.filmsData}
           personData={props.personData}
           personsData={props.personsData}
