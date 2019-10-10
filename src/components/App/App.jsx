@@ -102,7 +102,7 @@ class App extends Component {
         this.paginateUp()
       } else if (e.target.innerHTML === 'arrow_back_ios') {
         // paginate backward
-        // this.paginateDown(this.props.viewPersonsArray)
+        this.paginateDown()
         // return to index page on back arrow
       } else if (e.target.innerHTML === 'arrow_back') {
         window.location = '#/'
@@ -129,22 +129,19 @@ class App extends Component {
     window.location = `#/person/${personSlug}`
     return personObj[personNameKey]
   }
-  paginateDown(arr) {
-    console.log('down', arr)
-    let sliceEnd = this.state.currentCount - this.state.increment
-    console.log('end', sliceEnd)
-    // don't allow decrement pass list end
-    if (sliceEnd <= 0) return
-    let count = sliceEnd - this.state.increment
-    console.log('end', count)
-    // let indexes = utils.range(sliceStart + 1, count + 1, 1)
-    let chunk = arr.slice(count, sliceEnd)
-    console.log('chunk', chunk)
+  paginateDown() {
+    //increment current page count
     this.setState({
-      currentCount: sliceEnd,
-      lastCount: count,
-      currentPersonsChunk: chunk
+      currentPersonsPage: this.state.currentPersonsPage - 1
     })
+    if (this.state.currentPersonsPage && this.state.currentPersonsPage > 1) {
+      setTimeout(() => {
+        //  re-call api with number
+        this.callFetchPersons('all')
+      })
+    } else {
+      console.error('Cannot paginate lower than page 1')
+    }
   }
   // pass in full state array
   paginateUp() {
@@ -154,9 +151,6 @@ class App extends Component {
     })
     setTimeout(() => {
       //  re-call api with number
-      const url = `${endpoints.root}${endpoints.personsPage(
-        this.state.currentPersonsPage
-      )}`
       this.callFetchPersons('all')
     })
   }

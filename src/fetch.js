@@ -37,24 +37,25 @@ export function fetchPeople(url, type) {
           ) {
             console.error('Promise REJECTED')
             if (type === 'all') {
-              dispatch(fetchStarWarPersonsArrError(response.error))
+              dispatch(
+                fetchStarWarPersonsArrError(new Error('Error in fetchPeople()'))
+              )
             } else if (type === 'single') {
-              dispatch(fetchStarWarsPersonError(response.error))
+              dispatch(
+                fetchStarWarsPersonError(new Error('Error in fetchPeople()'))
+              )
             }
-            reject('rejected: no data found or 404')
-            throw response.error
+            return reject('error in fetchPeople() or 404')
           }
           if (type === 'all') {
-            console.log('HERE', response)
             dispatch(fetchStarWarPersonsArrSuccess(response.results))
-          } else if (type === 'single') {
+          } else if (type === ' single') {
             dispatch(fetchStarWarsPersonSuccess())
           }
           return resolve(response)
-          // return personRes
         })
         .catch(error => {
-          console.error('An error occured in fetchPeople')
+          console.error('An error occured in fetchPeople', error)
         })
     })
   }
