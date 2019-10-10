@@ -9,7 +9,7 @@ function Main(props) {
     <main className="Main">
       <div className="character-conatiner">
         <Table
-          currentPersonObj={props.currentPersonObj}
+          personData={props.personData}
           personTableCols={props.personTableCols}
           indexTableCols={props.indexTableCols}
           personsData={props.personsData ? props.personsData : null}

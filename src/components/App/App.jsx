@@ -54,7 +54,10 @@ class App extends Component {
   componentDidMount() {
     // console.log('this', this)
     // const { fetchPeople } = this.props
-    this.callFetchPersons('all')
+    this.callFetchPersons(
+      'all',
+      `${endpoints.root}${endpoints.personsPage(this.state.currentPersonsPage)}`
+    )
     // this.callFetchFilms([
     //   'https://swapi.co/api/films/2/',
     //   'https://swapi.co/api/films/6/',
@@ -64,11 +67,7 @@ class App extends Component {
     // ])
   }
   // load all persons - all or single person
-  callFetchPersons(type) {
-    // return new Promise((resolve, reject) => {
-    const url = `${endpoints.root}${endpoints.personsPage(
-      this.state.currentPersonsPage
-    )}`
+  callFetchPersons(type, url) {
     // console.log('app', url)
     this.props
       .fetchPeople(url, type)
@@ -93,8 +92,6 @@ class App extends Component {
   // }
   handleClick(e) {
     // console.log(e.target.innerHTML)
-    // console.log(e.target.classList)
-    // console.log(e.target.attributes)
     // icon component
     if (e.target.classList.contains('icon')) {
       if (e.target.innerHTML === 'arrow_forward_ios') {
@@ -110,24 +107,22 @@ class App extends Component {
     } else if (e.target.classList.contains('person-name-cell')) {
       // redner character page on name click
       const personObj = this.renderPersonPage(e)
-      console.log('PER', personObj)
+      // console.log('PER', personObj)
       // this.callFetchFilms(personObj.films)
     }
   }
   // renders page and returns person obj
   renderPersonPage(e) {
-    const personNameKey = e.target.innerHTML
-    const personObj = this.props.viewPersonsArray.find(person => {
-      return Object.keys(person)[0] === personNameKey
+    const personNameVal = e.target.innerHTML
+    const personObj = this.props.fetchCurrentPersonsArrSuccess.find(person => {
+      return person.name === personNameVal
     })
-    const personSlug = slugify(personNameKey).toLowerCase()
-    console.log(personObj)
-    console.log(personSlug)
-    this.setState({
-      currentPersonObj: personObj
-    })
-    window.location = `#/person/${personSlug}`
-    return personObj[personNameKey]
+    // console.log(personObj)
+    // fetch api data
+    this.callFetchPersons('single', personObj.url)
+    // render template
+    window.location = `#/person/${slugify(personObj.name).toLowerCase()}`
+    return personObj
   }
   paginateDown() {
     //increment current page count
@@ -137,7 +132,12 @@ class App extends Component {
     if (this.state.currentPersonsPage && this.state.currentPersonsPage > 1) {
       setTimeout(() => {
         //  re-call api with number
-        this.callFetchPersons('all')
+        this.callFetchPersons(
+          'all',
+          `${endpoints.root}${endpoints.personsPage(
+            this.state.currentPersonsPage
+          )}`
+        )
       })
     } else {
       console.error('Cannot paginate lower than page 1')
@@ -151,7 +151,12 @@ class App extends Component {
     })
     setTimeout(() => {
       //  re-call api with number
-      this.callFetchPersons('all')
+      this.callFetchPersons(
+        'all',
+        `${endpoints.root}${endpoints.personsPage(
+          this.state.currentPersonsPage
+        )}`
+      )
     })
   }
   render() {
@@ -160,6 +165,11 @@ class App extends Component {
       <div className="App">
         <Router
           onClick={this.handleClick}
+          personData={
+            this.props.fetchCurrentPersonSuccess
+              ? this.props.fetchCurrentPersonSuccess
+              : null
+          }
           personsData={
             this.props.fetchCurrentPersonsArrSuccess
               ? this.props.fetchCurrentPersonsArrSuccess
@@ -167,7 +177,6 @@ class App extends Component {
           }
           indexTableCols={this.state.indexTableCols}
           personTableCols={this.state.personTableCols}
-          currentPersonObj={this.state.currentPersonObj}
         />
       </div>
     )

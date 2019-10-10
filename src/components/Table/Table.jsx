@@ -38,13 +38,13 @@ function Table(props) {
       </table>
     )
   } else if (props.route === 'person/:personslug') {
-    const allProps = props.allProps.allProps.allProps.allProps.allProps
-    if (!allProps.viewFilmsArray.length) return null
-    console.log('all', allProps.viewFilmsArray)
-    const personKey = Object.keys(props.currentPersonObj)[0]
-    const person = props.currentPersonObj[personKey]
+    if (!props.personData) return null
+    const person = props.personData
+
+    console.log('PP', person.name)
+    // return <table className="table"></table>
     return (
-      <table className="table">
+      <table>
         <tbody>
           <tr>
             <td>Name</td>
@@ -76,9 +76,10 @@ function Table(props) {
           </tr>
           <tr>
             <td>Films</td>
-            {allProps.viewFilmsArray.map(film => {
+
+            {/* {allProps.viewFilmsArray.map(film => {
               return <td>{film}</td>
-            })}
+            })} */}
           </tr>
           <tr>
             <td>Homeworld</td>

@@ -17,7 +17,7 @@ import utils from './utils'
 // call paginated people
 export function fetchPeople(url, type) {
   console.log(url)
-  console.log(type)
+  // console.log(type)
   return dispatch => {
     return new Promise((resolve, reject) => {
       if (type === 'all') {
@@ -28,15 +28,14 @@ export function fetchPeople(url, type) {
       fetch(url)
         .then(res => res.json())
         .then(response => {
-          console.log('personRes', response)
+          // console.log('personRes', response)
           // ERROR handling
-          if (
-            utils.isObjEmpty(response) ||
-            !response.results ||
-            !response.results.length
-          ) {
+          if (utils.isObjEmpty(response)) {
             console.error('Promise REJECTED')
             if (type === 'all') {
+              if (!response.results || !response.results.length) {
+                console.error('Error: Empty persons array')
+              }
               dispatch(
                 fetchStarWarPersonsArrError(new Error('Error in fetchPeople()'))
               )
@@ -47,10 +46,11 @@ export function fetchPeople(url, type) {
             }
             return reject('error in fetchPeople() or 404')
           }
+          // console.log('four', type === 'single')
           if (type === 'all') {
             dispatch(fetchStarWarPersonsArrSuccess(response.results))
-          } else if (type === ' single') {
-            dispatch(fetchStarWarsPersonSuccess())
+          } else if (type === 'single') {
+            dispatch(fetchStarWarsPersonSuccess(response))
           }
           return resolve(response)
         })

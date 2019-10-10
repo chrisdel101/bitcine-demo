@@ -16,9 +16,7 @@ export function fetchStarWarsPersonSuccess(person) {
   console.log('pers', person)
   return {
     type: FETCH_STARWARS_PERSON_SUCCESS,
-    person: {
-      [person.name]: person
-    }
+    person: person
   }
 }
 export function fetchStarWarsPersonError(error) {

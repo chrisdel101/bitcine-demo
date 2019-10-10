@@ -11,8 +11,7 @@ function PersonMarkup(props) {
     <React.Fragment>
       <Icon iconName="arrow_back" size="18" onClick={props.onClick} />
       <Main
-        allProps={props}
-        currentPersonObj={props.currentPersonObj}
+        personData={props.personData}
         personsData={props.personsData}
         indexTableCols={props.indexTableCols}
         personTableCols={props.personTableCols}

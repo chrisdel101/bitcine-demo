@@ -19,7 +19,7 @@ const initialState = {
 }
 
 export function personReducer(state = initialState, action) {
-  console.log('acton', action)
+  // console.log('acton', action)
   switch (action.type) {
     // re: fetchCurrentPersonPending: false,
     case FETCH_STARWARS_PERSON_PENDING:
