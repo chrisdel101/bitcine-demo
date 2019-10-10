@@ -4,7 +4,7 @@ import Table from '../Table/Table.jsx'
 
 function Main(props) {
   if (!props.personsData) return null
-  console.log('main', props)
+  // console.log('main', props)
   return (
     <main className="Main">
       <div className="character-conatiner">

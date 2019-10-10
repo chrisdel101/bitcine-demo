@@ -17,6 +17,7 @@ import utils from './utils'
 // call paginated people
 export function fetchPeople(url, type) {
   console.log(url)
+  console.log(type)
   return dispatch => {
     return new Promise((resolve, reject) => {
       if (type === 'all') {
@@ -36,14 +37,15 @@ export function fetchPeople(url, type) {
           ) {
             console.error('Promise REJECTED')
             if (type === 'all') {
-              dispatch(fetchStarWarPersonsArrError())
+              dispatch(fetchStarWarPersonsArrError(response.error))
             } else if (type === 'single') {
-              dispatch(fetchStarWarsPersonError())
+              dispatch(fetchStarWarsPersonError(response.error))
             }
             reject('rejected: no data found or 404')
             throw response.error
           }
           if (type === 'all') {
+            console.log('HERE', response)
             dispatch(fetchStarWarPersonsArrSuccess(response.results))
           } else if (type === 'single') {
             dispatch(fetchStarWarsPersonSuccess())

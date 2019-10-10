@@ -19,7 +19,6 @@ function Table(props) {
         <tbody>
           {props.personsData
             ? props.personsData.map((person, i) => {
-                console.log('person', person)
                 return (
                   <tr key={i}>
                     <td

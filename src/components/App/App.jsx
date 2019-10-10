@@ -52,7 +52,7 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
-    console.log('this', this)
+    // console.log('this', this)
     // const { fetchPeople } = this.props
     this.callFetchPersons('all')
     // this.callFetchFilms([
@@ -69,11 +69,11 @@ class App extends Component {
     const url = `${endpoints.root}${endpoints.personsPage(
       this.state.currentPersonsPage
     )}`
-    console.log('app', url)
+    // console.log('app', url)
     this.props
       .fetchPeople(url, type)
       .then(res => {
-        console.log('res', res)
+        // console.log('res', res)
       })
       .catch(e => {
         console.error('Error in API call', e)
@@ -92,9 +92,9 @@ class App extends Component {
   //   })
   // }
   handleClick(e) {
-    console.log(e.target.innerHTML)
-    console.log(e.target.classList)
-    console.log(e.target.attributes)
+    // console.log(e.target.innerHTML)
+    // console.log(e.target.classList)
+    // console.log(e.target.attributes)
     // icon component
     if (e.target.classList.contains('icon')) {
       if (e.target.innerHTML === 'arrow_forward_ios') {
@@ -150,13 +150,15 @@ class App extends Component {
   paginateUp() {
     //increment current page count
     this.setState({
-      currentPersonsPage: this.state.currentPersonPage + 1
+      currentPersonsPage: this.state.currentPersonsPage + 1
     })
-    //  re-call api with number
-    const url = `${endpoints.root}${endpoints.personsPage(
-      this.state.currentPersonsPage
-    )}`
-    this.callFetchPersons(url)
+    setTimeout(() => {
+      //  re-call api with number
+      const url = `${endpoints.root}${endpoints.personsPage(
+        this.state.currentPersonsPage
+      )}`
+      this.callFetchPersons('all')
+    })
   }
   render() {
     // console.log('props', this.state)
