@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import './index.css'
 import Router from '../Router.jsx'
 import { fetchPeople as fetchPeopleAction } from '../../fetch'
+import { fetchFilms as fetchFilmsAction } from '../../fetch'
 import { bindActionCreators } from 'redux'
 import {
   fetchCurrentPersonSuccess,
@@ -13,6 +14,15 @@ import {
   addPersonPending,
   viewPersonsArray
 } from '../../reducers/personReducer'
+import {
+  fetchCurrentFilmSuccess,
+  fetchCurrentFilmPending,
+  fetchCurrentFilmError,
+  addFilmSuccess,
+  addFilmError,
+  addFilmPending,
+  viewFilmsArray
+} from '../../reducers/filmReducer'
 import endpoints from '../../endpoints'
 import slugify from 'slugify'
 
@@ -48,22 +58,41 @@ class App extends Component {
   componentDidMount() {
     // console.log('this', this)
     // const { fetchPeople } = this.props
-    this.callFetch()
+    // this.callFetchPersons()
+    this.callFetchFilms([
+      'https://swapi.co/api/films/2/',
+      'https://swapi.co/api/films/6/',
+      'https://swapi.co/api/films/3/',
+      'https://swapi.co/api/films/1/',
+      'https://swapi.co/api/films/7/'
+    ])
     // use a timer for now :(
-    setTimeout(() => {
-      // load first set on load
-      // console.log('props', this.props.viewPersonsArray)
-      this.paginateUp(this.props.viewPersonsArray)
-    }, 10000)
+    // setTimeout(() => {
+    // load first set on load
+    // console.log('props', this.props.viewPersonsArray)
+    //   this.paginateUp(this.props.viewPersonsArray)
+    // }, 10000)
   }
-  callFetch() {
+  callFetchPersons() {
     return new Promise((resolve, reject) => {
       let i = 1
       while (i < this.state.numToLoad + 1) {
-        const test = `${endpoints.root}${endpoints.people(i)}/`
-        // console.log('ca', test)
+        const url = `${endpoints.root}${endpoints.people(i)}/`
         this.props
-          .fetchPeople(test)
+          .fetchPeople(url)
+          .then(res => {})
+          .catch(e => {
+            console.error('Error in API call', e)
+          })
+        i++
+      }
+    })
+  }
+  callFetchFilms(filmsArr) {
+    return new Promise((resolve, reject) => {
+      for (let i = 0; i < filmsArr.length; i++) {
+        this.props
+          .fetchFilms(filmsArr[i])
           .then(res => {})
           .catch(e => {
             console.error('Error in API call', e)
@@ -192,13 +221,21 @@ const mapStateToProps = state => ({
   addPersonSuccess: addPersonSuccess(state),
   addPersonError: addPersonError(state),
   addPersonPending: addPersonPending(state),
-  viewPersonsArray: viewPersonsArray(state)
+  viewPersonsArray: viewPersonsArray(state),
+  fetchCurrentFilmSuccess: fetchCurrentFilmSuccess(state),
+  fetchCurrentFilmPending: fetchCurrentFilmPending(state),
+  fetchCurrentFilmError: fetchCurrentFilmError(state),
+  addFilmSuccess: addFilmSuccess(state),
+  addFilmError: addFilmError(state),
+  addFilmPending: addFilmPending(state),
+  viewFilmsArray: viewFilmsArray(state)
 })
 // takes the fetchPerson call and dispatches it
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      fetchPeople: fetchPeopleAction
+      fetchPeople: fetchPeopleAction,
+      fetchFilms: fetchFilmsAction
     },
     dispatch
   )

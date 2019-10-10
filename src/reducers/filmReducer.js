@@ -1,68 +1,67 @@
 import {
-  FETCH_STARWARS_PERSON_PENDING,
-  FETCH_STARWARS_PERSON_SUCCESS,
-  FETCH_STARWARS_PERSON_ERROR,
-  ADD_STARWARS_PERSON_PENDING,
-  ADD_STARWARS_PERSON_SUCCESS,
-  ADD_STARWARS_PERSON_ERROR
-} from '../actions/personActions'
+  FETCH_STARWARS_FILM_PENDING,
+  FETCH_STARWARS_FILM_SUCCESS,
+  FETCH_STARWARS_FILM_ERROR,
+  ADD_STARWARS_FILM_PENDING,
+  ADD_STARWARS_FILM_SUCCESS,
+  ADD_STARWARS_FILM_ERROR
+} from '../actions/filmActions'
 
 const initialState = {
-  currentPerson: null,
-  fetchCurrentPersonPending: false,
-  fetchCurrentPersonError: null,
-  addPersonPending: false,
-  addPersonSuccess: false,
-  addPersonError: null,
-  allPersons: []
+  currentFilm: null,
+  fetchCurrentFilmPending: false,
+  fetchCurrentFilmError: null,
+  addFilmPending: false,
+  addFilmSuccess: false,
+  addFilmError: null,
+  allFilms: []
 }
 
-export function personReducer(state = initialState, action) {
-  // console.log('acton', action)
+export function filmReducer(state = initialState, action) {
+  console.log('acton', action)
   switch (action.type) {
-    // re: fetchCurrentPersonPending: false,
-    case FETCH_STARWARS_PERSON_PENDING:
+    // re: fetchCurrentFilmPending: false,
+    case FETCH_STARWARS_FILM_PENDING:
       return {
         ...state,
-        currentPersonPending: true
+        currentFilmPending: true
       }
-    // re:   currentPerson: null
-    case FETCH_STARWARS_PERSON_SUCCESS:
+    // re:   currentFilm: null
+    case FETCH_STARWARS_FILM_SUCCESS:
       // console.log('HELLO1', action.person)
       return {
         ...state,
-        currentPersonPending: false,
-        currentPerson: action.person
+        currentFilmPending: false,
+        currentFilm: action.film
       }
-    // re: fetchCurrentPersonError: null,
-    case FETCH_STARWARS_PERSON_ERROR:
+    // re: fetchCurrentFilmError: null,
+    case FETCH_STARWARS_FILM_ERROR:
       return {
         ...state,
-        currentPersonPending: false,
-        fetchCurrentPersonError: action.error
+        currentFilmPending: false,
+        fetchCurrentFilmError: action.error
       }
-    // re: allPersons: []
-    case ADD_STARWARS_PERSON_SUCCESS:
+    // re: allFilm: []
+    case ADD_STARWARS_FILM_SUCCESS:
       // console.log('HELLO2', action.person)
       return {
         ...state,
-        addPersonPending: false,
-        // add person to array
-        allPersons: [...state.allPersons, action.person]
+        addFilmPending: false,
+        // add Film to array
+        allFilms: [...state.allFilms, action.film]
       }
-    // re:currentPersonAddedPending: false
-    case ADD_STARWARS_PERSON_PENDING:
+    // re:currentFilmAddedPending: false
+    case ADD_STARWARS_FILM_PENDING:
       return {
         ...state,
-        addPersonPending: true
+        addFilmPending: true
       }
-    //  re: currentPersonAddedError
-    case ADD_STARWARS_PERSON_ERROR:
-      console.log('HIHIHIH', action.error)
+    //  re: currentFilmAddedError
+    case ADD_STARWARS_FILM_ERROR:
       return {
         ...state,
-        addPersonPending: false,
-        addPersonError: action.error
+        addFilmPending: false,
+        addFilmError: action.error
       }
     default:
       return state
@@ -72,23 +71,23 @@ export function personReducer(state = initialState, action) {
 // get state from store and map  to views single
 
 // displays the current person being fetched
-export const fetchCurrentPersonSuccess = state => {
-  return state.personReducer.currentPerson
+export const fetchCurrentFilmSuccess = state => {
+  return state.filmReducer.currentFilm
 }
 // displays true/false
-export const fetchCurrentPersonPending = state =>
-  state.personReducer.currentPersonPending
-export const fetchCurrentPersonError = state =>
+export const fetchCurrentFilmPending = state =>
+  state.filmReducer.currentFilmPending
+export const fetchCurrentFilmError = state =>
   // displays error
-  state.personReducer.fetchCurrentPersonError
+  state.filmReducer.fetchCurrentFilmError
 // displays current person added to persons array
-export const addPersonSuccess = state => state.personReducer.currentPerson
-export const addPersonPending = state => state.personReducer.addPersonPending
+export const addFilmSuccess = state => state.filmReducer.currentFilm
+export const addFilmPending = state => state.filmReducer.addFilmPending
 // displays error
-export const addPersonError = state => {
+export const addFilmError = state => {
   // consol e.log('state', state)
-  return state.personReducer.addPersonError
+  return state.filmReducer.addFilmError
 }
 // returns persons array
-export const viewPersonsArray = state => state.personReducer.allPersons
-export default personReducer
+export const viewFilmsArray = state => state.personReducer.allFilms
+export default filmReducer

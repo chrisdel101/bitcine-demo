@@ -5,7 +5,13 @@ import {
   addStarWarsPersonSuccess,
   addStarWarsPersonError
 } from './actions/personActions.js'
-import endpoints from './endpoints'
+import {
+  fetchStarWarsFilmPending,
+  fetchStarWarsFilmSuccess,
+  fetchStarWarsFilmError,
+  addStarWarsFilmSuccess,
+  addStarWarsFilmError
+} from './actions/filmActions.js'
 
 // console.log(url)
 // 	let arr = []
@@ -63,24 +69,43 @@ export function fetchPeople(url) {
     })
   }
 }
-export function fetchMovie() {
-  const test = `${endpoints.root}${endpoints.people(1)}`
+export function fetchFilms(url) {
   return dispatch => {
-    dispatch(fetchStarWarsPersonPending())
-    fetch(test)
-      .then(res => res.json())
-      .then(personRes => {
-        console.log('personRes', personRes)
-        if (personRes.error) {
-          // console.error('REJECTED')
-          throw personRes.error
-        }
-        dispatch(fetchStarWarsPersonSuccess(personRes))
-        dispatch(addStarWarsPersonSuccess(personRes))
-        return personRes
-      })
-      .catch(error => {
-        dispatch(fetchStarWarsPersonError(error))
-      })
+    return new Promise((resolve, reject) => {
+      dispatch(fetchStarWarsFilmPending())
+      fetch(url)
+        .then(res => {
+          // console.log(res)
+          return res.json()
+        })
+        .then(filmRes => {
+          console.log('filmRes', filmRes)
+          // console.log('DETAILS', filmRes.detail === 'Not found')
+          if (filmRes.detail === 'Not found') {
+            console.error('REJECTED')
+            reject('rejected: no data found or 404')
+            throw filmRes.error
+          }
+          if (!addStarWarsFilmSuccess(filmRes).person) {
+            dispatch(
+              addStarWarsFilmError(
+                new Error(
+                  'An Error at addStarWarsFilmError: no person returned'
+                )
+              )
+            )
+            reject('rejected: no data found or 404')
+            throw filmRes.error
+          }
+          dispatch(fetchStarWarsFilmSuccess(filmRes))
+          // add to Films array here
+          dispatch(addStarWarsFilmSuccess(filmRes))
+          resolve(filmRes)
+          return filmRes
+        })
+        .catch(error => {
+          fetchStarWarsFilmError(error)
+        })
+    })
   }
 }
