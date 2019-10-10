@@ -5,7 +5,7 @@ function Table(props) {
   if (!props.personsData || !props.indexTableCols) return null
   if (props.route === 'index') {
     return (
-      <table className="table table-striped table-hover">
+      <table className="table table-striped">
         <thead>
           <tr>
             {props.indexTableCols.map((col, i) => {
@@ -24,7 +24,10 @@ function Table(props) {
                 const personKey = Object.keys(person)[0]
                 return (
                   <tr key={i}>
-                    <td onClick={props.onClick} className="person-name-cell">
+                    <td
+                      onClick={props.onClick}
+                      className="person-name-cell table-hover"
+                    >
                       {person[personKey].name}
                     </td>
                     <td>{person[personKey].birth_year}</td>
@@ -41,34 +44,58 @@ function Table(props) {
     const personKey = Object.keys(props.currentPersonObj)[0]
     const person = props.currentPersonObj[personKey]
     return (
-      <table className="table table-striped table-hover">
-        <thead>
-          <tr>
-            {props.personTableCols.map((col, i) => {
-              return (
-                <th scope="col" key={i}>
-                  {col}
-                </th>
-              )
-            })}
-          </tr>
-        </thead>
+      <table className="table">
         <tbody>
           <tr>
-            <td onClick={props.onClick} className="person-name-cell">
-              {person.name}
-            </td>
+            <td>Name</td>
+            <td>{person.name}</td>
+          </tr>
+          <tr>
+            <td>Birth Year</td>
             <td>{person.birth_year}</td>
+          </tr>
+          <tr>
+            <td>Height</td>
             <td>{person.height}</td>
+          </tr>
+          <tr>
+            <td>Mass</td>
             <td>{person.mass}</td>
+          </tr>
+          <tr>
+            <td>Hair Color</td>
             <td>{person.hair_color}</td>
+          </tr>
+          <tr>
+            <td>Eye Color</td>
             <td>{person.eye_color}</td>
+          </tr>
+          <tr>
+            <td>Gender</td>
             <td>{person.gender}</td>
+          </tr>
+          <tr>
+            <td>Films</td>
             <td>{person.films}</td>
+          </tr>
+          <tr>
+            <td>Homeworld</td>
             <td>{person.homeworld}</td>
+          </tr>
+          <tr>
+            <td>Skin Color</td>
             <td>{person.skin_color}</td>
+          </tr>
+          <tr>
+            <td>Species</td>
             <td>{person.species}</td>
+          </tr>
+          <tr>
+            <td>Starships</td>
             <td>{person.starships}</td>
+          </tr>
+          <tr>
+            <td>Vehicles</td>
             <td>{person.vehicles}</td>
           </tr>
         </tbody>

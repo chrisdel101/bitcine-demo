@@ -9,7 +9,7 @@ function PersonMarkup(props) {
   }
   return (
     <React.Fragment>
-      PERSON
+      <Icon iconName="arrow_back" size="18" onClick={props.onClick} />
       <Main
         currentPersonObj={props.currentPersonObj}
         personsData={props.personsData}
@@ -18,8 +18,6 @@ function PersonMarkup(props) {
         onClick={props.onClick}
         route={props.route}
       />
-      <Icon iconName="arrow_forward_ios" size="md" onClick={props.onClick} />
-      <Icon iconName="arrow_back_ios" size="md" onClick={props.onClick} />
     </React.Fragment>
   )
 }

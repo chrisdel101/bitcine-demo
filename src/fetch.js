@@ -29,7 +29,7 @@ export function fetchPeople(url) {
       dispatch(fetchStarWarsPersonPending())
       fetch(url)
         .then(res => {
-          console.log(res)
+          // console.log(res)
           return res.json()
         })
         .then(personRes => {

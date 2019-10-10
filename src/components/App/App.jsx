@@ -52,16 +52,16 @@ class App extends Component {
     // use a timer for now :(
     setTimeout(() => {
       // load first set on load
-      console.log('props', this.props.viewPersonsArray)
+      // console.log('props', this.props.viewPersonsArray)
       this.paginateUp(this.props.viewPersonsArray)
-    }, 5000)
+    }, 10000)
   }
   callFetch() {
     return new Promise((resolve, reject) => {
       let i = 1
       while (i < this.state.numToLoad + 1) {
         const test = `${endpoints.root}${endpoints.people(i)}/`
-        console.log('ca', test)
+        // console.log('ca', test)
         this.props
           .fetchPeople(test)
           .then(res => {})
@@ -77,15 +77,21 @@ class App extends Component {
   handleClick(e) {
     console.log(e.target.innerHTML)
     console.log(e.target.classList)
+    console.log(e.target.attributes)
     // icon component
     if (e.target.classList.contains('icon')) {
       if (e.target.innerHTML === 'arrow_forward_ios') {
+        // paginate forward
         this.paginateUp(this.props.viewPersonsArray)
       } else if (e.target.innerHTML === 'arrow_back_ios') {
-        console.log('back')
+        // paginate backward
         this.paginateDown(this.props.viewPersonsArray)
+        // return to index page on back arrow
+      } else if (e.target.innerHTML === 'arrow_back') {
+        window.location = '#/'
       }
     } else if (e.target.classList.contains('person-name-cell')) {
+      // redner character page on name click
       this.renderPersonPage(e)
     }
   }
