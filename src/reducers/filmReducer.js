@@ -1,44 +1,48 @@
 import {
-  FETCH_STARWARS_FILM_PENDING,
+  FETCH_STARWARS_FILM_ARR_PENDING,
   FETCH_STARWARS_FILM_SUCCESS,
   FETCH_STARWARS_FILM_ERROR,
   ADD_STARWARS_FILM_PENDING,
   ADD_STARWARS_FILM_SUCCESS,
-  ADD_STARWARS_FILM_ERROR
+  ADD_STARWARS_FILM_ERROR,
+  CHECK_STARWARS_FILM_ADDED
 } from '../actions/filmActions'
 
 const initialState = {
-  currentFilm: null,
+  // same as success
+  currentFilmFetched: null,
   fetchCurrentFilmPending: false,
   fetchCurrentFilmError: null,
   addFilmPending: false,
-  addFilmSuccess: false,
   addFilmError: null,
-  allFilms: []
+  addFilmSuccess: false,
+  allFilmsArr: []
 }
 
 export function filmReducer(state = initialState, action) {
-  // console.log('acton', action)
+  // console.log('state', state)
+  console.log('acton', action)
   switch (action.type) {
     // re: fetchCurrentFilmPending: false,
-    case FETCH_STARWARS_FILM_PENDING:
+    case FETCH_STARWARS_FILM_ARR_PENDING:
       return {
         ...state,
-        currentFilmPending: true
+        fetchCurrentFilmPending: true
       }
     // re:   currentFilm: null
     case FETCH_STARWARS_FILM_SUCCESS:
       // console.log('HELLO1', action.person)
       return {
         ...state,
-        currentFilmPending: false,
-        currentFilm: action.film
+        fetchCurrentFilmPending: false,
+        currentFilmFetched: action.film
       }
     // re: fetchCurrentFilmError: null,
     case FETCH_STARWARS_FILM_ERROR:
       return {
         ...state,
-        currentFilmPending: false,
+        fetchCurrentFilmPending: false,
+        addFilmSuccess: false,
         fetchCurrentFilmError: action.error
       }
     // re: allFilm: []
@@ -46,9 +50,10 @@ export function filmReducer(state = initialState, action) {
       // console.log('HELLO2', action.person)
       return {
         ...state,
+        addFilmSuccess: true,
         addFilmPending: false,
         // add Film to array
-        allFilms: [...state.allFilms, action.film]
+        allFilmsArr: [...state.allFilmsArr, action.film]
       }
     // re:currentFilmAddedPending: false
     case ADD_STARWARS_FILM_PENDING:
@@ -60,8 +65,18 @@ export function filmReducer(state = initialState, action) {
     case ADD_STARWARS_FILM_ERROR:
       return {
         ...state,
+        addFilmSuccess: false,
         addFilmPending: false,
         addFilmError: action.error
+      }
+    // TODO
+    case CHECK_STARWARS_FILM_ADDED:
+      const filmAdded = state.allFilmsArr.some(film => {
+        return film.title === action.title
+      })
+      return {
+        addFilmSuccess: filmAdded,
+        ...state
       }
     default:
       return state
@@ -72,7 +87,7 @@ export function filmReducer(state = initialState, action) {
 
 // displays the current person being fetched
 export const fetchCurrentFilmSuccess = state => {
-  return state.filmReducer.currentFilm
+  return state.filmReducer.currentFilmFetched
 }
 // displays true/false
 export const fetchCurrentFilmPending = state =>
@@ -81,7 +96,7 @@ export const fetchCurrentFilmError = state =>
   // displays error
   state.filmReducer.fetchCurrentFilmError
 // displays current person added to persons array
-export const addFilmSuccess = state => state.filmReducer.currentFilm
+export const addFilmSuccess = state => state.filmReducer.addFilmSuccess
 export const addFilmPending = state => state.filmReducer.addFilmPending
 // displays error
 export const addFilmError = state => {
@@ -89,8 +104,7 @@ export const addFilmError = state => {
   return state.filmReducer.addFilmError
 }
 // returns persons array
-export const viewFilmsArray = state => {
-  console.log('HERE', state)
-  return state.filmReducer.allFilms
+export const allFilms = state => {
+  return state.filmReducer.allFilmsArr
 }
 export default filmReducer

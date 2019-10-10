@@ -14,15 +14,15 @@ import {
   fetchCurrentPersonsArrPending
   // viewPersonsArray
 } from '../../reducers/personReducer'
-// import {
-//   fetchCurrentFilmSuccess,
-//   fetchCurrentFilmPending,
-//   fetchCurrentFilmError,
-//   addFilmSuccess,
-//   addFilmError,
-//   addFilmPending,
-//   viewFilmsArray
-// } from '../../reducers/filmReducer'
+import {
+  fetchCurrentFilmSuccess,
+  fetchCurrentFilmPending,
+  fetchCurrentFilmError,
+  addFilmSuccess,
+  // addFilmError,
+  // addFilmPending,
+  allFilms
+} from '../../reducers/filmReducer'
 import endpoints from '../../endpoints'
 import slugify from 'slugify'
 
@@ -120,8 +120,11 @@ class App extends Component {
     // console.log(personObj)
     // fetch api data
     this.callFetchPersons('single', personObj.url)
-    // render template
-    window.location = `#/person/${slugify(personObj.name).toLowerCase()}`
+    // add delay to render - TO DO - fix later
+    setTimeout(() => {
+      // render template
+      window.location = `#/person/${slugify(personObj.name).toLowerCase()}`
+    }, 400)
     return personObj
   }
   paginateDown() {
@@ -170,6 +173,7 @@ class App extends Component {
               ? this.props.fetchCurrentPersonSuccess
               : null
           }
+          filmsData={this.props.allFilms.length ? this.props.allFilms : null}
           personsData={
             this.props.fetchCurrentPersonsArrSuccess
               ? this.props.fetchCurrentPersonsArrSuccess
@@ -189,14 +193,14 @@ const mapStateToProps = state => ({
   fetchCurrentPersonError: fetchCurrentPersonError(state),
   fetchCurrentPersonsArrSuccess: fetchCurrentPersonsArrSuccess(state),
   fetchCurrentPersonsArrError: fetchCurrentPersonsArrError(state),
-  fetchCurrentPersonsArrPending: fetchCurrentPersonsArrPending(state)
-  // fetchCurrentFilmSuccess: fetchCurrentFilmSuccess(state),
-  // fetchCurrentFilmPending: fetchCurrentFilmPending(state),
-  // fetchCurrentFilmError: fetchCurrentFilmError(state),
-  // addFilmSuccess: addFilmSuccess(state),
+  fetchCurrentPersonsArrPending: fetchCurrentPersonsArrPending(state),
+  fetchCurrentFilmSuccess: fetchCurrentFilmSuccess(state),
+  fetchCurrentFilmPending: fetchCurrentFilmPending(state),
+  fetchCurrentFilmError: fetchCurrentFilmError(state),
+  addFilmSuccess: addFilmSuccess(state),
   // addFilmError: addFilmError(state),
   // addFilmPending: addFilmPending(state),
-  // viewFilmsArray: viewFilmsArray(state)
+  allFilms: allFilms(state)
 })
 // takes the fetchPerson call and dispatches it
 const mapDispatchToProps = dispatch =>

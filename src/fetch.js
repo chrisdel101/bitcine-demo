@@ -6,14 +6,17 @@ import {
   fetchStarWarPersonsArrPending,
   fetchStarWarPersonsArrError
 } from './actions/personActions.js'
-// import {
-//   fetchStarWarsFilmPending,
-//   fetchStarWarsFilmSuccess,
-//   fetchStarWarsFilmError,
-//   addStarWarsFilmSuccess,
-//   addStarWarsFilmError
-// } from './actions/filmActions.js'
+import {
+  fetchStarWarsFilmsArrPending,
+  fetchStarWarsFilmSuccess,
+  fetchStarWarsFilmError,
+  addStarWarsFilmSuccess,
+  addStarWarsFilmPending
+  // addStarWarsFilmError,
+  // checkStarWarsFilmAdded
+} from './actions/filmActions.js'
 import utils from './utils'
+
 // call paginated people
 export function fetchPeople(url, type) {
   console.log(url)
@@ -51,6 +54,7 @@ export function fetchPeople(url, type) {
             dispatch(fetchStarWarPersonsArrSuccess(response.results))
           } else if (type === 'single') {
             dispatch(fetchStarWarsPersonSuccess(response))
+            fetchFilms(response.films, dispatch)
           }
           return resolve(response)
         })
@@ -60,42 +64,36 @@ export function fetchPeople(url, type) {
     })
   }
 }
-// export function fetchFilms(url) {
-//   // console.log('URL', url)
-//   return dispatch => {
-//     return new Promise((resolve, reject) => {
-//       dispatch(fetchStarWarsFilmPending())
-//       fetch(url)
-//         .then(res => {
-//           return res.json()
-//         })
-//         .then(filmRes => {
-//           // console.log('filmRes', filmRes)
-//           if (filmRes.detail === 'Not found') {
-//             console.error('promise REJECTED')
-//             reject('rejected: no data found or 404')
-//             throw filmRes.error
-//           }
-//           if (utils.isObjEmpty(filmRes)) {
-//             dispatch(
-//               addStarWarsFilmError(
-//                 new Error(
-//                   'An Error at addStarWarsFilmError: empty response obj'
-//                 )
-//               )
-//             )
-//             reject('rejected: addStarWarsFilmError: empty response obj')
-//             throw filmRes.error
-//           }
-//           dispatch(fetchStarWarsFilmSuccess(filmRes))
-//           // add to Films array here
-//           dispatch(addStarWarsFilmSuccess(filmRes))
-//           resolve(filmRes)
-//           return filmRes
-//         })
-//         .catch(error => {
-//           fetchStarWarsFilmError(error)
-//         })
-//     })
-//   }
-// }
+export function fetchFilms(filmsUrlsArr, dispatch) {
+  return new Promise((resolve, reject) => {
+    dispatch(fetchStarWarsFilmsArrPending())
+    filmsUrlsArr.forEach(filmUrl => {
+      fetch(filmUrl)
+        .then(res => res.json())
+        .then(response => {
+          console.log('film res', response)
+          // ERROR handling
+          if (utils.isObjEmpty(response)) {
+            console.error('Promise REJECTED')
+            // if (!response.results || !response.results.length) {
+            console.error('Error: Empty persons array')
+            // }
+            dispatch(fetchStarWarsFilmError(new Error('Error in fetchFilm()')))
+            // }
+            return reject('error in fetchFilm() or 404')
+          }
+
+          dispatch(fetchStarWarsFilmSuccess(response))
+          dispatch(addStarWarsFilmPending)
+          dispatch(addStarWarsFilmSuccess(response))
+          // TODO
+          // dispatch(checkStarWarsFilmAdded(response.title))
+
+          return resolve(response)
+        })
+        .catch(error => {
+          console.error('An error occured in fetchFilms', error)
+        })
+    })
+  })
+}

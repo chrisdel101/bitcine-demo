@@ -28,6 +28,7 @@ function renderMarkup(props) {
     if (utils.checkForParams(url.hash)) {
       return (
         <PersonMarkup
+          filmsData={props.filmsData}
           personData={props.personData}
           personsData={props.personsData}
           personTableCols={props.personTableCols}

@@ -38,13 +38,10 @@ function Table(props) {
       </table>
     )
   } else if (props.route === 'person/:personslug') {
-    if (!props.personData) return null
+    if (!props.personData || !props.filmsData) return null
     const person = props.personData
-
-    console.log('PP', person.name)
-    // return <table className="table"></table>
     return (
-      <table>
+      <table className="table table-striped">
         <tbody>
           <tr>
             <td>Name</td>
@@ -76,10 +73,11 @@ function Table(props) {
           </tr>
           <tr>
             <td>Films</td>
-
-            {/* {allProps.viewFilmsArray.map(film => {
-              return <td>{film}</td>
-            })} */}
+            <ul>
+              {props.filmsData.map(film => {
+                return <li>{film.title}</li>
+              })}
+            </ul>
           </tr>
           <tr>
             <td>Homeworld</td>

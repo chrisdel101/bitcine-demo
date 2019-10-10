@@ -2,7 +2,6 @@ import React from 'react'
 import Main from '../../Main/Main.jsx'
 import Icon from '../../Material/Icon/Icon.jsx'
 function PersonMarkup(props) {
-  console.log('person', props.currentPersonObj)
   if (!props.personsData) return null
   if (props.currentPersonObj === 'No Character Chosen') {
     return <React.Fragment>No Character Selected</React.Fragment>
@@ -11,6 +10,7 @@ function PersonMarkup(props) {
     <React.Fragment>
       <Icon iconName="arrow_back" size="18" onClick={props.onClick} />
       <Main
+        filmsData={props.filmsData}
         personData={props.personData}
         personsData={props.personsData}
         indexTableCols={props.indexTableCols}
