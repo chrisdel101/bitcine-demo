@@ -7,6 +7,7 @@ function IndexMarkup(props) {
   return (
     <React.Fragment>
       <Main
+        allProps={props}
         personsData={props.personsData}
         indexTableCols={props.indexTableCols}
         onClick={props.onClick}

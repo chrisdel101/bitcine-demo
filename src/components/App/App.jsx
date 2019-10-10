@@ -30,8 +30,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      numToLoad: 33,
-      increment: 10,
+      numToLoad: 2,
+      increment: 2,
       currentCount: 0,
       lastCount: 0,
       currentPersonsChunk: null,
@@ -58,7 +58,7 @@ class App extends Component {
   componentDidMount() {
     // console.log('this', this)
     // const { fetchPeople } = this.props
-    this.callFetchPersons(`${endpoints.root}${endpoints.allPeople}`)
+    this.callFetchPersons()
     // this.callFetchFilms([
     //   'https://swapi.co/api/films/2/',
     //   'https://swapi.co/api/films/6/',
@@ -67,31 +67,35 @@ class App extends Component {
     //   'https://swapi.co/api/films/7/'
     // ])
     // use a timer for now :(
-    // setTimeout(() => {
-    // load first set on load
-    // console.log('props', this.props.viewPersonsArray)
-    //   this.paginateUp(this.props.viewPersonsArray)
-    // }, 10000)
+    setTimeout(() => {
+      // load first set on load
+      console.log('props', this.props.viewPersonsArray)
+      this.paginateUp(this.props.viewPersonsArray)
+    }, 2000)
   }
-  callFetchPersons(url) {
-    console.log(url)
-    this.props
-      .fetchPeople(url)
-      // .then(res => {})
-      .catch(e => {
-        console.error('Error in API call', e)
-      })
+  // load all persons
+  callFetchPersons() {
+    return new Promise((resolve, reject) => {
+      let i = 1
+      while (i < this.state.numToLoad + 1) {
+        const url = `${endpoints.root}${endpoints.people(i)}/`
+        this.props
+          .fetchPeople(url)
+          .then(res => {})
+          .catch(e => {
+            console.error('Error in API call', e)
+          })
+        i++
+      }
+    })
   }
   callFetchFilms(filmsArr) {
     return new Promise((resolve, reject) => {
       for (let i = 0; i < filmsArr.length; i++) {
         console.log(i)
-        this.props
-          .fetchFilms(filmsArr[i])
-          .then(res => {})
-          .catch(e => {
-            console.error('Error in API call', e)
-          })
+        this.props.fetchFilms(filmsArr[i]).catch(e => {
+          console.error('Error in API call', e)
+        })
       }
     }).finally(() => {
       console.log('done')
@@ -115,9 +119,12 @@ class App extends Component {
       }
     } else if (e.target.classList.contains('person-name-cell')) {
       // redner character page on name click
-      this.renderPersonPage(e)
+      const personObj = this.renderPersonPage(e)
+      console.log('PER', personObj)
+      this.callFetchFilms(personObj.films)
     }
   }
+  // renders page and returns person obj
   renderPersonPage(e) {
     const personNameKey = e.target.innerHTML
     const personObj = this.props.viewPersonsArray.find(person => {
@@ -130,6 +137,7 @@ class App extends Component {
       currentPersonObj: personObj
     })
     window.location = `#/person/${personSlug}`
+    return personObj[personNameKey]
   }
   paginateDown(arr) {
     console.log('down', arr)
@@ -193,6 +201,7 @@ class App extends Component {
     return (
       <div className="App">
         <Router
+          allProps={this.props}
           onClick={this.handleClick}
           personsData={
             this.state.currentPersonsChunk

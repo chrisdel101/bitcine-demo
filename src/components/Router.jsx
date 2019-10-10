@@ -12,6 +12,7 @@ function Router(props) {
           path="/"
           component={() => (
             <Page
+              allProps={props}
               personsData={props.personsData ? props.personsData : null}
               onClick={props.onClick}
               indexTableCols={props.indexTableCols}
@@ -23,6 +24,7 @@ function Router(props) {
           path="/person/:personslug"
           component={() => (
             <Page
+              allProps={props}
               personsData={props.personsData ? props.personsData : null}
               indexTableCols={props.indexTableCols}
               onClick={props.onClick}

@@ -9,6 +9,7 @@ function Main(props) {
     <main className="Main">
       <div className="character-conatiner">
         <Table
+          allProps={props}
           currentPersonObj={props.currentPersonObj}
           personTableCols={props.personTableCols}
           indexTableCols={props.indexTableCols}

@@ -18,7 +18,7 @@ const initialState = {
 }
 
 export function filmReducer(state = initialState, action) {
-  // console.log('acton', action)
+  console.log('acton', action)
   switch (action.type) {
     // re: fetchCurrentFilmPending: false,
     case FETCH_STARWARS_FILM_PENDING:
@@ -89,5 +89,8 @@ export const addFilmError = state => {
   return state.filmReducer.addFilmError
 }
 // returns persons array
-export const viewFilmsArray = state => state.personReducer.allFilms
+export const viewFilmsArray = state => {
+  console.log('HERE', state)
+  return state.filmReducer.allFilms
+}
 export default filmReducer

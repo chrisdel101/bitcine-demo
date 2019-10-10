@@ -14,6 +14,7 @@ function renderMarkup(props) {
   if (utils.checkRoute('/')) {
     return (
       <IndexMarkup
+        allProps={props}
         personsData={props.personsData}
         personTableCols={props.personTableCols}
         indexTableCols={props.indexTableCols}
@@ -27,6 +28,7 @@ function renderMarkup(props) {
     if (utils.checkForParams(url.hash)) {
       return (
         <PersonMarkup
+          allProps={props}
           currentPersonObj={props.currentPersonObj}
           personsData={props.personsData}
           personTableCols={props.personTableCols}
