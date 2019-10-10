@@ -58,7 +58,7 @@ class App extends Component {
   componentDidMount() {
     // console.log('this', this)
     // const { fetchPeople } = this.props
-    // this.callFetchPersons()
+    this.callFetchPersons()
     this.callFetchFilms([
       'https://swapi.co/api/films/2/',
       'https://swapi.co/api/films/6/',
@@ -91,13 +91,13 @@ class App extends Component {
   callFetchFilms(filmsArr) {
     return new Promise((resolve, reject) => {
       for (let i = 0; i < filmsArr.length; i++) {
+        console.log(i)
         this.props
           .fetchFilms(filmsArr[i])
           .then(res => {})
           .catch(e => {
             console.error('Error in API call', e)
           })
-        i++
       }
     }).finally(() => {
       console.log('done')

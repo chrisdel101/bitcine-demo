@@ -18,7 +18,7 @@ const initialState = {
 }
 
 export function filmReducer(state = initialState, action) {
-  console.log('acton', action)
+  // console.log('acton', action)
   switch (action.type) {
     // re: fetchCurrentFilmPending: false,
     case FETCH_STARWARS_FILM_PENDING:

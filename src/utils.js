@@ -23,7 +23,13 @@ function checkForParams(hash) {
   }
   return false
 }
+function isObjEmpty(obj) {
+  return Object.entries(obj).length === 0 && obj.constructor === Object
+    ? true
+    : false
+}
 module.exports = {
+  isObjEmpty,
   checkForParams,
   range,
   checkRoute

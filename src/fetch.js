@@ -12,6 +12,7 @@ import {
   addStarWarsFilmSuccess,
   addStarWarsFilmError
 } from './actions/filmActions.js'
+import utils from './utils'
 
 // console.log(url)
 // 	let arr = []
@@ -42,7 +43,7 @@ export function fetchPeople(url) {
           console.log('personRes', personRes)
           // console.log('DETAILS', personRes.detail === 'Not found')
           if (personRes.detail === 'Not found') {
-            console.error('REJECTED')
+            console.error('Promise REJECTED')
             reject('rejected: no data found or 404')
             throw personRes.error
           }
@@ -70,31 +71,30 @@ export function fetchPeople(url) {
   }
 }
 export function fetchFilms(url) {
+  // console.log('URL', url)
   return dispatch => {
     return new Promise((resolve, reject) => {
       dispatch(fetchStarWarsFilmPending())
       fetch(url)
         .then(res => {
-          // console.log(res)
           return res.json()
         })
         .then(filmRes => {
-          console.log('filmRes', filmRes)
-          // console.log('DETAILS', filmRes.detail === 'Not found')
+          // console.log('filmRes', filmRes)
           if (filmRes.detail === 'Not found') {
-            console.error('REJECTED')
+            console.error('promise REJECTED')
             reject('rejected: no data found or 404')
             throw filmRes.error
           }
-          if (!addStarWarsFilmSuccess(filmRes).person) {
+          if (utils.isObjEmpty(filmRes)) {
             dispatch(
               addStarWarsFilmError(
                 new Error(
-                  'An Error at addStarWarsFilmError: no person returned'
+                  'An Error at addStarWarsFilmError: empty response obj'
                 )
               )
             )
-            reject('rejected: no data found or 404')
+            reject('rejected: addStarWarsFilmError: empty response obj')
             throw filmRes.error
           }
           dispatch(fetchStarWarsFilmSuccess(filmRes))
