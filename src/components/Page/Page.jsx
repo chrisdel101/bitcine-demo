@@ -11,10 +11,9 @@ import PersonMarkup from '../Markup/PersonMarkup/PersonMarkup'
 function renderMarkup(props) {
   if (!props.personsData) return null
   console.log(props)
-  if (utils.checkRoute('/')) {
+  if (props.route === 'index') {
     return (
       <IndexMarkup
-        allProps={props}
         personsData={props.personsData}
         personTableCols={props.personTableCols}
         indexTableCols={props.indexTableCols}
@@ -42,7 +41,8 @@ function renderMarkup(props) {
 }
 
 function Page(props) {
-  if (!props.personsData) return null
+  if (!props) return null
+  console.log('page')
   // const [peopleCount, setCount] = useState(0)
   return (
     <div className="Page">

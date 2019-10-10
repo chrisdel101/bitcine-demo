@@ -52,7 +52,7 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
-    // console.log('this', this)
+    console.log('this', this)
     // const { fetchPeople } = this.props
     this.callFetchPersons('all')
     // this.callFetchFilms([
@@ -99,7 +99,7 @@ class App extends Component {
     if (e.target.classList.contains('icon')) {
       if (e.target.innerHTML === 'arrow_forward_ios') {
         // paginate forward
-        // this.paginateUp(this.props.viewPersonsArray)
+        this.paginateUp()
       } else if (e.target.innerHTML === 'arrow_back_ios') {
         // paginate backward
         // this.paginateDown(this.props.viewPersonsArray)
@@ -147,55 +147,26 @@ class App extends Component {
     })
   }
   // pass in full state array
-  paginateUp(arr) {
-    console.log(arr)
-    //increment and get current count
-    let count = this.state.currentCount + this.state.increment
-    console.log('count', count)
-    let sliceStart = count - this.state.increment
-    console.log('start', sliceStart)
-    let sliceEnd = count
-    if (sliceEnd > this.props.viewPersonsArray.length) return
-    console.log('end', sliceEnd)
-    // let indexes = utils.range(sliceStart + 1, sliceEnd + 1, 1)
-    let chunk = arr.slice(sliceStart, sliceEnd)
-    console.log('chunk', chunk)
+  paginateUp() {
+    //increment current page count
     this.setState({
-      currentCount: count,
-      lastCount: sliceEnd,
-      currentPersonsChunk: chunk
+      currentPersonsPage: this.state.currentPersonPage + 1
     })
-    // if (utils.checkRoute('comments')) {
-    //   return {
-    //     chunkComments: chunk,
-    //     counter: count,
-    //     indexes: indexes
-    //   }
-    // } else if (utils.checkRoute('personUp')) {
-    //   console.log('chunk', chunk)
-    //   return {
-    //     chunkShowNew: chunk,
-    //     counter: count,
-    //     indexes: indexes
-    //   }
-    // } else {
-    //   return {
-    //     chunkData: chunk,
-    //     counter: count,
-    //     indexes: indexes
-    //   }
-    // }
+    //  re-call api with number
+    const url = `${endpoints.root}${endpoints.personsPage(
+      this.state.currentPersonsPage
+    )}`
+    this.callFetchPersons(url)
   }
   render() {
     // console.log('props', this.state)
     return (
       <div className="App">
         <Router
-          allProps={this.props}
           onClick={this.handleClick}
           personsData={
-            this.state.currentPersonsChunk
-              ? this.state.currentPersonsChunk
+            this.props.fetchCurrentPersonsArrSuccess
+              ? this.props.fetchCurrentPersonsArrSuccess
               : null
           }
           indexTableCols={this.state.indexTableCols}

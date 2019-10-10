@@ -19,19 +19,18 @@ function Table(props) {
         <tbody>
           {props.personsData
             ? props.personsData.map((person, i) => {
-                //   console.log('person', person)
-                const personKey = Object.keys(person)[0]
+                console.log('person', person)
                 return (
                   <tr key={i}>
                     <td
                       onClick={props.onClick}
                       className="person-name-cell table-hover"
                     >
-                      {person[personKey].name}
+                      {person.name}
                     </td>
-                    <td>{person[personKey].birth_year}</td>
-                    <td>{person[personKey].height}</td>
-                    <td>{person[personKey].mass}</td>
+                    <td>{person.birth_year}</td>
+                    <td>{person.height}</td>
+                    <td>{person.mass}</td>
                   </tr>
                 )
               })
