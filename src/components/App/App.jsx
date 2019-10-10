@@ -58,14 +58,14 @@ class App extends Component {
   componentDidMount() {
     // console.log('this', this)
     // const { fetchPeople } = this.props
-    this.callFetchPersons()
-    this.callFetchFilms([
-      'https://swapi.co/api/films/2/',
-      'https://swapi.co/api/films/6/',
-      'https://swapi.co/api/films/3/',
-      'https://swapi.co/api/films/1/',
-      'https://swapi.co/api/films/7/'
-    ])
+    this.callFetchPersons(`${endpoints.root}${endpoints.allPeople}`)
+    // this.callFetchFilms([
+    //   'https://swapi.co/api/films/2/',
+    //   'https://swapi.co/api/films/6/',
+    //   'https://swapi.co/api/films/3/',
+    //   'https://swapi.co/api/films/1/',
+    //   'https://swapi.co/api/films/7/'
+    // ])
     // use a timer for now :(
     // setTimeout(() => {
     // load first set on load
@@ -73,20 +73,14 @@ class App extends Component {
     //   this.paginateUp(this.props.viewPersonsArray)
     // }, 10000)
   }
-  callFetchPersons() {
-    return new Promise((resolve, reject) => {
-      let i = 1
-      while (i < this.state.numToLoad + 1) {
-        const url = `${endpoints.root}${endpoints.people(i)}/`
-        this.props
-          .fetchPeople(url)
-          .then(res => {})
-          .catch(e => {
-            console.error('Error in API call', e)
-          })
-        i++
-      }
-    })
+  callFetchPersons(url) {
+    console.log(url)
+    this.props
+      .fetchPeople(url)
+      // .then(res => {})
+      .catch(e => {
+        console.error('Error in API call', e)
+      })
   }
   callFetchFilms(filmsArr) {
     return new Promise((resolve, reject) => {

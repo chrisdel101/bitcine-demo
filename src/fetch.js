@@ -31,6 +31,7 @@ import utils from './utils'
 // 		}, 2000)
 // 	})
 export function fetchPeople(url) {
+  console.log(url)
   return dispatch => {
     return new Promise((resolve, reject) => {
       dispatch(fetchStarWarsPersonPending())

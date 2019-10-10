@@ -1,5 +1,6 @@
 module.exports = {
   root: 'https://swapi.co/api/',
+  allPeople: `people`,
   people: id => {
     return `people/${id}`
   },
