@@ -15,11 +15,16 @@ import {
   // addStarWarsFilmError,
   // checkStarWarsFilmAdded
 } from './actions/filmActions.js'
+import {
+  fetchStarWarsPlanetPending,
+  fetchStarWarsPlanetSuccess,
+  fetchStarWarsPlanetError
+} from './actions/planetActions.js'
 import utils from './utils'
 
 // call paginated people
 export function fetchPeople(url, type) {
-  console.log(url)
+  // console.log(url)
   // console.log(type)
   return dispatch => {
     return new Promise((resolve, reject) => {
@@ -55,6 +60,7 @@ export function fetchPeople(url, type) {
           } else if (type === 'single') {
             dispatch(fetchStarWarsPersonSuccess(response))
             fetchFilms(response.films, dispatch)
+            fetchPlanet(response.homeworld, dispatch)
           }
           return resolve(response)
         })
@@ -71,7 +77,7 @@ export function fetchFilms(filmsUrlsArr, dispatch) {
       fetch(filmUrl)
         .then(res => res.json())
         .then(response => {
-          console.log('film res', response)
+          // console.log('film res', response)
           // ERROR handling
           if (utils.isObjEmpty(response)) {
             console.error('Promise REJECTED')
@@ -95,5 +101,29 @@ export function fetchFilms(filmsUrlsArr, dispatch) {
           console.error('An error occured in fetchFilms', error)
         })
     })
+  })
+}
+export function fetchPlanet(planetUrl, dispatch) {
+  return new Promise((resolve, reject) => {
+    dispatch(fetchStarWarsPlanetPending())
+    fetch(planetUrl)
+      .then(res => res.json())
+      .then(response => {
+        console.log('planet res', response)
+        // ERROR handling
+        if (utils.isObjEmpty(response)) {
+          console.error('Promise REJECTED')
+          console.error('Error: Empty planet response')
+          dispatch(fetchStarWarsPlanetError(new Error('Error in fetchFilm()')))
+          // }
+          return reject('error in fetchFilm() or 404')
+        }
+
+        dispatch(fetchStarWarsPlanetSuccess(response))
+        return resolve(response)
+      })
+      .catch(error => {
+        console.error('An error occured in fetchPlanet', error)
+      })
   })
 }

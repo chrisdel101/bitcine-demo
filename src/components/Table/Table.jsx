@@ -73,11 +73,13 @@ function Table(props) {
           </tr>
           <tr>
             <td>Films</td>
-            <ul>
-              {props.filmsData.map(film => {
-                return <li>{film.title}</li>
-              })}
-            </ul>
+            <td>
+              <ul>
+                {props.filmsData.map((film, i) => {
+                  return <li key={i}>{film.title}</li>
+                })}
+              </ul>
+            </td>
           </tr>
           <tr>
             <td>Homeworld</td>

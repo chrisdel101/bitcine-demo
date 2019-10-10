@@ -26,7 +26,7 @@ export function fetchStarWarsPersonError(error) {
   }
 }
 export function fetchStarWarPersonsArrSuccess(personsArr) {
-  console.log('ARR', personsArr)
+  // console.log('ARR', personsArr)
   // set api array to current array
   return {
     currentPersonsArr: personsArr,
