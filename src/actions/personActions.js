@@ -1,9 +1,11 @@
 export const FETCH_STARWARS_PERSON_PENDING = 'FETCH_STARWARS_PERSON_PENDING'
 export const FETCH_STARWARS_PERSON_SUCCESS = 'FETCH_STARWARS_PERSON_SUCCESS'
 export const FETCH_STARWARS_PERSON_ERROR = 'FETCH_STARWARS_PERSON_ERROR'
-export const ADD_STARWARS_PERSON_SUCCESS = 'ADD_STARWARS_PERSON_SUCCESS'
-export const ADD_STARWARS_PERSON_ERROR = 'ADD_STARWARS_PERSON_ERROR'
-export const ADD_STARWARS_PERSON_PENDING = 'ADD_STARWARS_PERSON_PENDING'
+export const ADD_STARWARS_PERSONS_ARR_SUCCESS =
+  'ADD_STARWARS_PERSONS_ARR_SUCCESS'
+export const ADD_STARWARS_PERSONS_ARR_ERROR = 'ADD_STARWARS_PERSONS_ARR_ERROR'
+export const ADD_STARWARS_PERSONS_ARR_PENDING =
+  'ADD_STARWARS_PERSONS_ARR_PENDING'
 
 export function fetchStarWarsPersonPending() {
   return {
@@ -25,25 +27,21 @@ export function fetchStarWarsPersonError(error) {
     error
   }
 }
-export function addStarWarsPersonSuccess(person) {
+export function fetchStarWarPersonsArrSuccess(personsArr) {
+  // set api array to current array
   return {
-    person: {
-      [person.name]: person
-    },
-    type: ADD_STARWARS_PERSON_SUCCESS
+    currentPersonsArr: personsArr,
+    type: ADD_STARWARS_PERSONS_ARR_SUCCESS
   }
 }
-export function addStarWarsPersonPending(person) {
+export function fetchStarWarPersonsArrPending(person) {
   return {
-    person: {
-      [person.name]: person
-    },
-    type: ADD_STARWARS_PERSON_PENDING
+    type: ADD_STARWARS_PERSONS_ARR_PENDING
   }
 }
-export function addStarWarsPersonError(error) {
+export function fetchStarWarPersonsArrError(error) {
   return {
-    type: ADD_STARWARS_PERSON_ERROR,
+    type: ADD_STARWARS_PERSONS_ARR_ERROR,
     error: error
   }
 }

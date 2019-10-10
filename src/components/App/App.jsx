@@ -3,26 +3,26 @@ import { connect } from 'react-redux'
 import './index.css'
 import Router from '../Router.jsx'
 import { fetchPeople as fetchPeopleAction } from '../../fetch'
-import { fetchFilms as fetchFilmsAction } from '../../fetch'
+// import { fetchFilms as fetchFilmsAction } from '../../fetch'
 import { bindActionCreators } from 'redux'
 import {
   fetchCurrentPersonSuccess,
   fetchCurrentPersonPending,
   fetchCurrentPersonError,
-  addPersonSuccess,
-  addPersonError,
-  addPersonPending,
-  viewPersonsArray
+  fetchCurrentPersonsArrSuccess,
+  fetchCurrentPersonsArrError,
+  fetchCurrentPersonsArrPending
+  // viewPersonsArray
 } from '../../reducers/personReducer'
-import {
-  fetchCurrentFilmSuccess,
-  fetchCurrentFilmPending,
-  fetchCurrentFilmError,
-  addFilmSuccess,
-  addFilmError,
-  addFilmPending,
-  viewFilmsArray
-} from '../../reducers/filmReducer'
+// import {
+//   fetchCurrentFilmSuccess,
+//   fetchCurrentFilmPending,
+//   fetchCurrentFilmError,
+//   addFilmSuccess,
+//   addFilmError,
+//   addFilmPending,
+//   viewFilmsArray
+// } from '../../reducers/filmReducer'
 import endpoints from '../../endpoints'
 import slugify from 'slugify'
 
@@ -30,11 +30,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      numToLoad: 2,
-      increment: 2,
-      currentCount: 0,
-      lastCount: 0,
-      currentPersonsChunk: null,
+      currentPersonsPage: 1,
       indexTableCols: ['Name', 'Birth Year', 'Height', 'Mass'],
       personTableCols: [
         'Name',
@@ -58,7 +54,7 @@ class App extends Component {
   componentDidMount() {
     // console.log('this', this)
     // const { fetchPeople } = this.props
-    this.callFetchPersons()
+    this.callFetchPersons('all')
     // this.callFetchFilms([
     //   'https://swapi.co/api/films/2/',
     //   'https://swapi.co/api/films/6/',
@@ -66,41 +62,35 @@ class App extends Component {
     //   'https://swapi.co/api/films/1/',
     //   'https://swapi.co/api/films/7/'
     // ])
-    // use a timer for now :(
-    setTimeout(() => {
-      // load first set on load
-      console.log('props', this.props.viewPersonsArray)
-      this.paginateUp(this.props.viewPersonsArray)
-    }, 2000)
   }
-  // load all persons
-  callFetchPersons() {
-    return new Promise((resolve, reject) => {
-      let i = 1
-      while (i < this.state.numToLoad + 1) {
-        const url = `${endpoints.root}${endpoints.people(i)}/`
-        this.props
-          .fetchPeople(url)
-          .then(res => {})
-          .catch(e => {
-            console.error('Error in API call', e)
-          })
-        i++
-      }
-    })
+  // load all persons - all or single person
+  callFetchPersons(type) {
+    // return new Promise((resolve, reject) => {
+    const url = `${endpoints.root}${endpoints.personsPage(
+      this.state.currentPersonsPage
+    )}`
+    console.log('app', url)
+    this.props
+      .fetchPeople(url, type)
+      .then(res => {
+        console.log('res', res)
+      })
+      .catch(e => {
+        console.error('Error in API call', e)
+      })
   }
-  callFetchFilms(filmsArr) {
-    return new Promise((resolve, reject) => {
-      for (let i = 0; i < filmsArr.length; i++) {
-        console.log(i)
-        this.props.fetchFilms(filmsArr[i]).catch(e => {
-          console.error('Error in API call', e)
-        })
-      }
-    }).finally(() => {
-      console.log('done')
-    })
-  }
+  // callFetchFilms(filmsArr) {
+  //   return new Promise((resolve, reject) => {
+  //     for (let i = 0; i < filmsArr.length; i++) {
+  //       console.log(i)
+  //       this.props.fetchFilms(filmsArr[i]).catch(e => {
+  //         console.error('Error in API call', e)
+  //       })
+  //     }
+  //   }).finally(() => {
+  //     console.log('done')
+  //   })
+  // }
   handleClick(e) {
     console.log(e.target.innerHTML)
     console.log(e.target.classList)
@@ -109,10 +99,10 @@ class App extends Component {
     if (e.target.classList.contains('icon')) {
       if (e.target.innerHTML === 'arrow_forward_ios') {
         // paginate forward
-        this.paginateUp(this.props.viewPersonsArray)
+        // this.paginateUp(this.props.viewPersonsArray)
       } else if (e.target.innerHTML === 'arrow_back_ios') {
         // paginate backward
-        this.paginateDown(this.props.viewPersonsArray)
+        // this.paginateDown(this.props.viewPersonsArray)
         // return to index page on back arrow
       } else if (e.target.innerHTML === 'arrow_back') {
         window.location = '#/'
@@ -121,7 +111,7 @@ class App extends Component {
       // redner character page on name click
       const personObj = this.renderPersonPage(e)
       console.log('PER', personObj)
-      this.callFetchFilms(personObj.films)
+      // this.callFetchFilms(personObj.films)
     }
   }
   // renders page and returns person obj
@@ -221,24 +211,23 @@ const mapStateToProps = state => ({
   fetchCurrentPersonSuccess: fetchCurrentPersonSuccess(state),
   fetchCurrentPersonPending: fetchCurrentPersonPending(state),
   fetchCurrentPersonError: fetchCurrentPersonError(state),
-  addPersonSuccess: addPersonSuccess(state),
-  addPersonError: addPersonError(state),
-  addPersonPending: addPersonPending(state),
-  viewPersonsArray: viewPersonsArray(state),
-  fetchCurrentFilmSuccess: fetchCurrentFilmSuccess(state),
-  fetchCurrentFilmPending: fetchCurrentFilmPending(state),
-  fetchCurrentFilmError: fetchCurrentFilmError(state),
-  addFilmSuccess: addFilmSuccess(state),
-  addFilmError: addFilmError(state),
-  addFilmPending: addFilmPending(state),
-  viewFilmsArray: viewFilmsArray(state)
+  fetchCurrentPersonsArrSuccess: fetchCurrentPersonsArrSuccess(state),
+  fetchCurrentPersonsArrError: fetchCurrentPersonsArrError(state),
+  fetchCurrentPersonsArrPending: fetchCurrentPersonsArrPending(state)
+  // fetchCurrentFilmSuccess: fetchCurrentFilmSuccess(state),
+  // fetchCurrentFilmPending: fetchCurrentFilmPending(state),
+  // fetchCurrentFilmError: fetchCurrentFilmError(state),
+  // addFilmSuccess: addFilmSuccess(state),
+  // addFilmError: addFilmError(state),
+  // addFilmPending: addFilmPending(state),
+  // viewFilmsArray: viewFilmsArray(state)
 })
 // takes the fetchPerson call and dispatches it
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      fetchPeople: fetchPeopleAction,
-      fetchFilms: fetchFilmsAction
+      fetchPeople: fetchPeopleAction
+      // fetchFilms: fetchFilmsAction
     },
     dispatch
   )

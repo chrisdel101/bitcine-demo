@@ -2,19 +2,20 @@ import {
   FETCH_STARWARS_PERSON_PENDING,
   FETCH_STARWARS_PERSON_SUCCESS,
   FETCH_STARWARS_PERSON_ERROR,
-  ADD_STARWARS_PERSON_PENDING,
-  ADD_STARWARS_PERSON_SUCCESS,
-  ADD_STARWARS_PERSON_ERROR
+  ADD_STARWARS_PERSONS_ARR_PENDING,
+  ADD_STARWARS_PERSONS_ARR_SUCCESS,
+  ADD_STARWARS_PERSONS_ARR_ERROR
 } from '../actions/personActions'
 
 const initialState = {
+  // single person
   currentPerson: null,
   fetchCurrentPersonPending: false,
   fetchCurrentPersonError: null,
-  addPersonPending: false,
-  addPersonSuccess: false,
-  addPersonError: null,
-  allPersons: []
+  // current char arr
+  currentPersonsArr: null,
+  fetchCurrentPersonsArrPending: false,
+  fetchCurrentPersonsArrError: null
 }
 
 export function personReducer(state = initialState, action) {
@@ -41,35 +42,31 @@ export function personReducer(state = initialState, action) {
         currentPersonPending: false,
         fetchCurrentPersonError: action.error
       }
-    // re: allPersons: []
-    case ADD_STARWARS_PERSON_SUCCESS:
-      // console.log('HELLO2', action.person)
+    // re: fetchCurrentPersonsArrPending: false,
+    case ADD_STARWARS_PERSONS_ARR_PENDING:
       return {
         ...state,
-        addPersonPending: false,
-        // add person to array
-        allPersons: [...state.allPersons, action.person]
+        fetchCurrentPersonsArrPending: true
       }
-    // re:currentPersonAddedPending: false
-    case ADD_STARWARS_PERSON_PENDING:
+    // re:   currentPersonsArr: null
+    case ADD_STARWARS_PERSONS_ARR_SUCCESS:
+      // console.log('HELLO1', action.person)
       return {
         ...state,
-        addPersonPending: true
+        fetchCurrentPersonsArrPending: false,
+        currentPersonsArr: action.currentPersonsArr
       }
-    //  re: currentPersonAddedError
-    case ADD_STARWARS_PERSON_ERROR:
-      console.log('HIHIHIH', action.error)
+    // re: fetchCurrentPersonsArrError: null,
+    case ADD_STARWARS_PERSONS_ARR_ERROR:
       return {
         ...state,
-        addPersonPending: false,
-        addPersonError: action.error
+        currentPersonPending: false,
+        fetchCurrentPersonsArrError: action.error
       }
     default:
       return state
   }
 }
-
-// get state from store and map  to views single
 
 // displays the current person being fetched
 export const fetchCurrentPersonSuccess = state => {
@@ -81,14 +78,14 @@ export const fetchCurrentPersonPending = state =>
 export const fetchCurrentPersonError = state =>
   // displays error
   state.personReducer.fetchCurrentPersonError
-// displays current person added to persons array
-export const addPersonSuccess = state => state.personReducer.currentPerson
-export const addPersonPending = state => state.personReducer.addPersonPending
+// displays current person arr from api page
+export const fetchCurrentPersonsArrSuccess = state =>
+  state.personReducer.currentPersonsArr
+export const fetchCurrentPersonsArrPending = state =>
+  state.personReducer.fetchCurrentPersonsArrPending
 // displays error
-export const addPersonError = state => {
+export const fetchCurrentPersonsArrError = state => {
   // consol e.log('state', state)
-  return state.personReducer.addPersonError
+  return state.personReducer.fetchCurrentPersonsArrError
 }
-// returns persons array
-export const viewPersonsArray = state => state.personReducer.allPersons
 export default personReducer

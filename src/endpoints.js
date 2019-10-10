@@ -1,8 +1,8 @@
 module.exports = {
   root: 'https://swapi.co/api/',
   allPeople: `people`,
-  people: id => {
-    return `people/${id}`
+  personsPage: id => {
+    return `people/?page=${id}`
   },
   films: id => {
     return `films/${id}`
