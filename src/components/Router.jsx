@@ -1,7 +1,6 @@
 import React from 'react'
-import { HashRouter, Route, Link } from 'react-router-dom'
+import { HashRouter, Route } from 'react-router-dom'
 import Page from './Page/Page.jsx'
-import PersonMarkup from './Markup/PersonMarkup/PersonMarkup'
 
 function Router(props) {
   return (

@@ -13,7 +13,6 @@ function checkRoute(routeName) {
 }
 // useed when deployed to GH pages
 function checkForParams(hash) {
-  console.log(hash)
   // works only for create react app with # in route
   var re = /^#\/[\w]+\/[\w]+/
   if (re.test(hash)) {

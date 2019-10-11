@@ -20,7 +20,6 @@ function renderMarkup(props) {
     )
   }
   const url = new URL(window.location)
-  console.log('url', url)
   if (url.hash.includes('/person')) {
     if (utils.checkForParams(url.hash)) {
       return (

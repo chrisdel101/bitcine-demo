@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import './index.css'
 import Router from '../Router.jsx'
 import { fetchPeople as fetchPeopleAction } from '../../fetch'
-// import { fetchFilms as fetchFilmsAction } from '../../fetch'
 import { bindActionCreators } from 'redux'
 import {
   fetchCurrentPersonSuccess,
@@ -104,7 +103,6 @@ class App extends Component {
   }
   // renders page and returns person obj
   renderPersonPage(e) {
-    console.log('here')
     const personNameVal = e.target.innerHTML
     const personObj = this.props.fetchCurrentPersonsArrSuccess.find(person => {
       return person.name === personNameVal

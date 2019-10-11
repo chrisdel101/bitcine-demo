@@ -1,5 +1,4 @@
 import React from 'react'
-import './index.css'
 import Table from '../Table/Table.jsx'
 
 function Main(props) {
