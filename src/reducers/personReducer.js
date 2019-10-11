@@ -50,7 +50,6 @@ export function personReducer(state = initialState, action) {
       }
     // re:   currentPersonsArr: null
     case ADD_STARWARS_PERSONS_ARR_SUCCESS:
-      // console.log('HELLO1', action.person)
       return {
         ...state,
         fetchCurrentPersonsArrPending: false,
@@ -69,9 +68,8 @@ export function personReducer(state = initialState, action) {
 }
 
 // displays the current person being fetched
-export const fetchCurrentPersonSuccess = state => {
-  return state.personReducer.currentPerson
-}
+export const fetchCurrentPersonSuccess = state =>
+  state.personReducer.currentPerson
 // displays true/false
 export const fetchCurrentPersonPending = state =>
   state.personReducer.currentPersonPending
@@ -84,8 +82,7 @@ export const fetchCurrentPersonsArrSuccess = state =>
 export const fetchCurrentPersonsArrPending = state =>
   state.personReducer.fetchCurrentPersonsArrPending
 // displays error
-export const fetchCurrentPersonsArrError = state => {
-  // consol e.log('state', state)
-  return state.personReducer.fetchCurrentPersonsArrError
-}
+export const fetchCurrentPersonsArrError = state =>
+  state.personReducer.fetchCurrentPersonsArrError
+
 export default personReducer

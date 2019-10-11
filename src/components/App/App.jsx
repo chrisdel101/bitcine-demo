@@ -12,15 +12,12 @@ import {
   fetchCurrentPersonsArrSuccess,
   fetchCurrentPersonsArrError,
   fetchCurrentPersonsArrPending
-  // viewPersonsArray
 } from '../../reducers/personReducer'
 import {
   fetchCurrentFilmSuccess,
   fetchCurrentFilmPending,
   fetchCurrentFilmError,
   addFilmSuccess,
-  // addFilmError,
-  // addFilmPending,
   allFilms
 } from '../../reducers/filmReducer'
 import {
@@ -68,8 +65,6 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
-    // console.log('this', this)
-    // const { fetchPeople } = this.props
     this.callFetchPersons(
       'all',
       `${endpoints.root}${endpoints.personsPage(this.state.currentPersonsPage)}`
@@ -90,7 +85,6 @@ class App extends Component {
     })
   }
   handleClick(e) {
-    // console.log(e.target.innerHTML)
     // icon component
     if (e.target.classList.contains('icon')) {
       if (e.target.innerHTML === 'arrow_forward_ios') {
@@ -104,10 +98,8 @@ class App extends Component {
         window.location = '#/'
       }
     } else if (e.target.classList.contains('person-name-cell')) {
-      // redner character page on name click
-      const personObj = this.renderPersonPage(e)
-      // console.log('PER', personObj)
-      // this.callFetchFilms(personObj.films)
+      // render character page on name click
+      this.renderPersonPage(e)
     }
   }
   // renders page and returns person obj
@@ -161,7 +153,6 @@ class App extends Component {
     })
   }
   render() {
-    // console.log('props', this.state)
     return (
       <div className="App">
         <Router
@@ -211,8 +202,6 @@ const mapStateToProps = state => ({
   fetchCurrentFilmPending: fetchCurrentFilmPending(state),
   fetchCurrentFilmError: fetchCurrentFilmError(state),
   addFilmSuccess: addFilmSuccess(state),
-  // addFilmError: addFilmError(state),
-  // addFilmPending: addFilmPending(state),
   allFilms: allFilms(state),
   // planets
   fetchCurrentPlanetSuccess: fetchCurrentPlanetSuccess(state),
@@ -233,7 +222,6 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       fetchPeople: fetchPeopleAction
-      // fetchFilms: fetchFilmsAction
     },
     dispatch
   )

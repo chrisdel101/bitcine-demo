@@ -8,7 +8,6 @@ export function fetchStarWarsSpeciesPending() {
   }
 }
 export function fetchStarWarsSpeciesSuccess(species) {
-  console.log('spec', species)
   return {
     type: FETCH_STARWARS_SPECIES_SUCCESS,
     species: species
@@ -20,4 +19,3 @@ export function fetchStarWarsSpeciesError(error) {
     error
   }
 }
-// https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao

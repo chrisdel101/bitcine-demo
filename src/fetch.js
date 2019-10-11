@@ -13,15 +13,11 @@ import {
   addStarWarsFilmSuccess,
   addStarWarsFilmPending,
   clearStarWarsFilms
-  // addStarWarsFilmError,
-  // checkStarWarsFilmAdded
 } from './actions/filmActions.js'
 import {
   fetchStarWarsStarshipArrPending,
   fetchStarWarsStarshipSuccess,
-  fetchStarWarsStarshipError,
   addStarWarsStarshipSuccess,
-  addStarWarsStarshipPending,
   clearStarWarsStarships
 } from './actions/starshipActions.js'
 import {
@@ -36,10 +32,7 @@ import {
 } from './actions/speciesActions.js'
 import utils from './utils'
 
-// call paginated people
 export function fetchPeople(url, type) {
-  // console.log(url)
-  // console.log(type)
   return dispatch => {
     return new Promise((resolve, reject) => {
       if (type === 'all') {
@@ -50,7 +43,6 @@ export function fetchPeople(url, type) {
       fetch(url)
         .then(res => res.json())
         .then(response => {
-          // console.log('personRes', response)
           // ERROR handling
           if (utils.isObjEmpty(response)) {
             console.error('Promise REJECTED')
@@ -95,15 +87,11 @@ export function fetchFilms(filmsUrlsArr, dispatch) {
       fetch(filmUrl)
         .then(res => res.json())
         .then(response => {
-          // console.log('film res', response)
           // ERROR handling
           if (utils.isObjEmpty(response)) {
             console.error('Promise REJECTED')
-            // if (!response.results || !response.results.length) {
             console.error('Error: Empty persons array')
-            // }
             dispatch(fetchStarWarsFilmError(new Error('Error in fetchFilm()')))
-            // }
             return reject('error in fetchFilm() or 404')
           }
 
@@ -128,17 +116,13 @@ export function fetchStarship(starshipUrlsArr, dispatch) {
       fetch(shipUrl)
         .then(res => res.json())
         .then(response => {
-          // console.log('film res', response)
           // ERROR handling
           if (utils.isObjEmpty(response)) {
             console.error('Promise REJECTED')
-            // if (!response.results || !response.results.length) {
             console.error('Error: Empty persons array')
-            // }
             dispatch(
               fetchStarWarsFilmError(new Error('Error in fetchStarship())'))
             )
-            // }
             return reject('error in fetchStarship() or 404')
           }
 
@@ -161,7 +145,6 @@ export function fetchPlanet(planetUrl, dispatch) {
     fetch(planetUrl)
       .then(res => res.json())
       .then(response => {
-        console.log('planet res', response)
         // ERROR handling
         if (utils.isObjEmpty(response)) {
           console.error('Promise REJECTED')
@@ -185,7 +168,6 @@ export function fetchSpecies(speciesUrl, dispatch) {
     fetch(speciesUrl)
       .then(res => res.json())
       .then(response => {
-        console.log('planet res', response)
         // ERROR handling
         if (utils.isObjEmpty(response)) {
           console.error('Promise REJECTED')

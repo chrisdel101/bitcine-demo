@@ -1,14 +1,11 @@
 import React from 'react'
 import './index.css'
-// import Header from '../Header/Header.jsx'
 import IndexMarkup from '../Markup/IndexMarkup/IndexMarkup.jsx'
 import utils from '../../utils'
-// import endpoints from '../../endpoints'
 import PersonMarkup from '../Markup/PersonMarkup/PersonMarkup'
 
 function renderMarkup(props) {
   if (!props.personsData) return null
-  // console.log(props)
   if (props.route === 'index') {
     return (
       <IndexMarkup
@@ -44,7 +41,6 @@ function renderMarkup(props) {
 
 function Page(props) {
   if (!props) return null
-  // const [peopleCount, setCount] = useState(0)
   return (
     <div className="Page">
       <header>Starwar character demo</header>

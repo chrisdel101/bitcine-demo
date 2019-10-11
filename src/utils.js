@@ -8,14 +8,10 @@ function range(start, stop, step) {
 function checkRoute(routeName) {
   // works for both dev and prod
   routeName = `#${routeName}`
-  // console.log('route', routeName)
   let hash = window.location.hash
-  // console.log('hash', hash)
   return hash === routeName ? true : false
 }
 function checkForParams(hash) {
-  // const
-  // console.log('hash', hash)
   // works only for create react app with # in route
   var re = /^#\/[\w]+\/[\w]+/
   if (re.test(hash)) {

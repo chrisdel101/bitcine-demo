@@ -2,9 +2,15 @@ import React from 'react'
 import Main from '../../Main/Main.jsx'
 import Icon from '../../Material/Icon/Icon.jsx'
 function PersonMarkup(props) {
-  if (!props.personsData) return null
-  if (props.currentPersonObj === 'No Character Chosen') {
-    return <React.Fragment>No Character Selected</React.Fragment>
+  if (!props) return null
+  if (!props.personData) {
+    return (
+      <div>
+        <Icon iconName="arrow_back" size="18" onClick={props.onClick} />
+        <strong>No Character Selected.</strong> Use the back arrow to choose a
+        character.
+      </div>
+    )
   }
   return (
     <React.Fragment>

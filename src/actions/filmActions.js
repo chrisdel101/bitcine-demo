@@ -31,7 +31,6 @@ export function fetchStarWarsFilmError(error) {
   }
 }
 export function addStarWarsFilmSuccess(film) {
-  // console.log('film', film)
   return {
     film: film,
     type: ADD_STARWARS_FILM_SUCCESS
@@ -55,4 +54,3 @@ export function checkStarWarsFilmAdded(filmTile) {
     type: CHECK_STARWARS_FILM_ADDED
   }
 }
-// https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao

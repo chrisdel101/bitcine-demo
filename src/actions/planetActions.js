@@ -8,7 +8,6 @@ export function fetchStarWarsPlanetPending() {
   }
 }
 export function fetchStarWarsPlanetSuccess(planet) {
-  console.log('plan', planet)
   return {
     type: FETCH_STARWARS_PLANET_SUCCESS,
     planet: planet
@@ -20,5 +19,3 @@ export function fetchStarWarsPlanetError(error) {
     error
   }
 }
-
-// https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao

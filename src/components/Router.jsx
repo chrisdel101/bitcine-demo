@@ -3,7 +3,6 @@ import { HashRouter, Route } from 'react-router-dom'
 import Page from './Page/Page.jsx'
 
 function Router(props) {
-  // const url = new URL(window.location)
   return (
     <HashRouter basename={process.env.PUBLIC_URL}>
       <div>

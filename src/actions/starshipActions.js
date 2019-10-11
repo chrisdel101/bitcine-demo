@@ -32,7 +32,6 @@ export function fetchStarWarsStarshipError(error) {
   }
 }
 export function addStarWarsStarshipSuccess(starship) {
-  // console.log('starship', starship)
   return {
     starship: starship,
     type: ADD_STARWARS_STARSHIP_SUCCESS

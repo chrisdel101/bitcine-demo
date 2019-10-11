@@ -21,7 +21,6 @@ const initialState = {
 }
 
 export function starshipReducer(state = initialState, action) {
-  // console.log('state', state)
   // console.log('acton', action)
   switch (action.type) {
     case CLEAR_STARWARS_STARSHIP:
@@ -29,21 +28,17 @@ export function starshipReducer(state = initialState, action) {
         ...state,
         allStarshipsArr: []
       }
-    // re: fetchCurrentStarshipPending: false,
     case FETCH_STARWARS_STARSHIP_ARR_PENDING:
       return {
         ...state,
         fetchCurrentStarshipPending: true
       }
-    // re:   currentFilm: null
     case FETCH_STARWARS_STARSHIP_SUCCESS:
-      // console.log('HELLO1', action.person)
       return {
         ...state,
         fetchCurrentStarshipPending: false,
         currentStarshipFetched: action.starship
       }
-    // re: fetchCurrentFilmError: null,
     case FETCH_STARWARS_STARSHIP_ERROR:
       return {
         ...state,
@@ -51,23 +46,18 @@ export function starshipReducer(state = initialState, action) {
         addStarshipSuccess: false,
         fetchCurrentStarshipError: action.error
       }
-    // re: allFilm: []
     case ADD_STARWARS_STARSHIP_SUCCESS:
-      // console.log('HELLO2', action.person)
       return {
         ...state,
         addStarshipSuccess: true,
         addStarshipPending: false,
-        // add Film to array
         allStarshipsArr: [...state.allStarshipsArr, action.starship]
       }
-    // re:currentFilmAddedPending: false
     case ADD_STARWARS_STARSHIP_PENDING:
       return {
         ...state,
         addStarshipPending: true
       }
-    //  re: currentFilmAddedError
     case ADD_STARWARS_STARSHIP_ERROR:
       return {
         ...state,

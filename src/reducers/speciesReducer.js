@@ -11,7 +11,7 @@ const initialState = {
 }
 
 export function speciesReducer(state = initialState, action) {
-  console.log('acton', action)
+  // console.log('acton', action)
   switch (action.type) {
     case FETCH_STARWARS_SPECIES_PENDING:
       return {
@@ -19,7 +19,6 @@ export function speciesReducer(state = initialState, action) {
         fetchCurrentSpeciesPending: true
       }
     case FETCH_STARWARS_SPECIES_SUCCESS:
-      // console.log('HELLO1', action.person)
       return {
         ...state,
         fetchCurrentSpeciesPending: false,
@@ -36,9 +35,8 @@ export function speciesReducer(state = initialState, action) {
   }
 }
 // displays the current person being fetched
-export const fetchCurrentSpeciesSuccess = state => {
-  return state.speciesReducer.currentSpeciesFetched
-}
+export const fetchCurrentSpeciesSuccess = state =>
+  state.speciesReducer.currentSpeciesFetched
 // displays true/false
 export const fetchCurrentSpeciesPending = state =>
   state.speciesReducer.fetchCurrentSpeciesPending

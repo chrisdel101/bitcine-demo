@@ -10,7 +10,6 @@ import {
 } from '../actions/filmActions'
 
 const initialState = {
-  // same as success
   currentFilmFetched: null,
   fetchCurrentFilmPending: false,
   fetchCurrentFilmError: null,
@@ -21,7 +20,6 @@ const initialState = {
 }
 
 export function filmReducer(state = initialState, action) {
-  // console.log('state', state)
   // console.log('acton', action)
   switch (action.type) {
     case CLEAR_STARWARS_FILMS:
@@ -37,7 +35,6 @@ export function filmReducer(state = initialState, action) {
       }
     // re:   currentFilm: null
     case FETCH_STARWARS_FILM_SUCCESS:
-      // console.log('HELLO1', action.person)
       return {
         ...state,
         fetchCurrentFilmPending: false,
@@ -53,7 +50,6 @@ export function filmReducer(state = initialState, action) {
       }
     // re: allFilm: []
     case ADD_STARWARS_FILM_SUCCESS:
-      // console.log('HELLO2', action.person)
       return {
         ...state,
         addFilmSuccess: true,
@@ -89,29 +85,21 @@ export function filmReducer(state = initialState, action) {
   }
 }
 
-// get state from store and map  to views single
-
 // displays the current person being fetched
-export const fetchCurrentFilmSuccess = state => {
-  return state.filmReducer.currentFilmFetched
-}
+export const fetchCurrentFilmSuccess = state =>
+  state.filmReducer.currentFilmFetched
 // displays true/false
 export const fetchCurrentFilmPending = state =>
   state.filmReducer.currentFilmPending
+// displays error
 export const fetchCurrentFilmError = state =>
-  // displays error
   state.filmReducer.fetchCurrentFilmError
 // displays current person added to persons array
 export const addFilmSuccess = state => state.filmReducer.addFilmSuccess
 export const addFilmPending = state => state.filmReducer.addFilmPending
 // displays error
-export const addFilmError = state => {
-  // consol e.log('state', state)
-  return state.filmReducer.addFilmError
-}
-// returns persons array
-export const allFilms = state => {
-  return state.filmReducer.allFilmsArr
-}
+export const addFilmError = state => state.filmReducer.addFilmError
+// returns films array
+export const allFilms = state => state.filmReducer.allFilmsArr
 
 export default filmReducer
