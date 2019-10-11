@@ -1,94 +1,49 @@
 import {
-  FETCH_STARWARS_PERSON_PENDING,
-  FETCH_STARWARS_PERSON_SUCCESS,
-  FETCH_STARWARS_PERSON_ERROR,
-  ADD_STARWARS_PERSON_PENDING,
-  ADD_STARWARS_PERSON_SUCCESS,
-  ADD_STARWARS_PERSON_ERROR
-} from '../actions/personActions'
+  FETCH_STARWARS_SPECIES_PENDING,
+  FETCH_STARWARS_SPECIES_SUCCESS,
+  FETCH_STARWARS_SPECICES_ERROR
+} from '../actions/speciesActions'
 
 const initialState = {
-  currentPerson: null,
-  fetchCurrentPersonPending: false,
-  fetchCurrentPersonError: null,
-  addPersonPending: false,
-  addPersonSuccess: false,
-  addPersonError: null,
-  allPersons: []
+  currentSpeciesFetched: null,
+  fetchCurrentSpeciesPending: false,
+  fetchCurrentSpeciesError: null
 }
 
-export function personReducer(state = initialState, action) {
-  // console.log('acton', action)
+export function speciesReducer(state = initialState, action) {
+  console.log('acton', action)
   switch (action.type) {
-    // re: fetchCurrentPersonPending: false,
-    case FETCH_STARWARS_PERSON_PENDING:
+    case FETCH_STARWARS_SPECIES_PENDING:
       return {
         ...state,
-        currentPersonPending: true
+        fetchCurrentSpeciesPending: true
       }
-    // re:   currentPerson: null
-    case FETCH_STARWARS_PERSON_SUCCESS:
+    case FETCH_STARWARS_SPECIES_SUCCESS:
       // console.log('HELLO1', action.person)
       return {
         ...state,
-        currentPersonPending: false,
-        currentPerson: action.person
+        fetchCurrentSpeciesPending: false,
+        currentSpeciesFetched: action.species
       }
-    // re: fetchCurrentPersonError: null,
-    case FETCH_STARWARS_PERSON_ERROR:
+    case FETCH_STARWARS_SPECICES_ERROR:
       return {
         ...state,
-        currentPersonPending: false,
-        fetchCurrentPersonError: action.error
-      }
-    // re: allPersons: []
-    case ADD_STARWARS_PERSON_SUCCESS:
-      // console.log('HELLO2', action.person)
-      return {
-        ...state,
-        addPersonPending: false,
-        // add person to array
-        allPersons: [...state.allPersons, action.person]
-      }
-    // re:currentPersonAddedPending: false
-    case ADD_STARWARS_PERSON_PENDING:
-      return {
-        ...state,
-        addPersonPending: true
-      }
-    //  re: currentPersonAddedError
-    case ADD_STARWARS_PERSON_ERROR:
-      console.log('HIHIHIH', action.error)
-      return {
-        ...state,
-        addPersonPending: false,
-        addPersonError: action.error
+        fetchCurrentSpeciesPending: false,
+        fetchCurrentSpeciesError: action.error
       }
     default:
       return state
   }
 }
-
-// get state from store and map  to views single
-
 // displays the current person being fetched
-export const fetchCurrentPersonSuccess = state => {
-  return state.personReducer.currentPerson
+export const fetchCurrentSpeciesSuccess = state => {
+  return state.speciesReducer.currentSpeciesFetched
 }
 // displays true/false
-export const fetchCurrentPersonPending = state =>
-  state.personReducer.currentPersonPending
-export const fetchCurrentPersonError = state =>
-  // displays error
-  state.personReducer.fetchCurrentPersonError
-// displays current person added to persons array
-export const addPersonSuccess = state => state.personReducer.currentPerson
-export const addPersonPending = state => state.personReducer.addPersonPending
+export const fetchCurrentSpeciesPending = state =>
+  state.speciesReducer.fetchCurrentSpeciesPending
 // displays error
-export const addPersonError = state => {
-  // consol e.log('state', state)
-  return state.personReducer.addPersonError
-}
-// returns persons array
-export const viewPersonsArray = state => state.personReducer.allPersons
-export default personReducer
+export const fetchCurrentPerfetchCurrentSpeciesErrorsonError = state =>
+  state.speciesReducer.fetchCurrentSpeciesError
+
+export default speciesReducer

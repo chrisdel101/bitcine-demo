@@ -5,7 +5,8 @@ import {
   ADD_STARWARS_FILM_PENDING,
   ADD_STARWARS_FILM_SUCCESS,
   ADD_STARWARS_FILM_ERROR,
-  CHECK_STARWARS_FILM_ADDED
+  CHECK_STARWARS_FILM_ADDED,
+  CLEAR_STARWARS_FILMS
 } from '../actions/filmActions'
 
 const initialState = {
@@ -23,6 +24,11 @@ export function filmReducer(state = initialState, action) {
   // console.log('state', state)
   // console.log('acton', action)
   switch (action.type) {
+    case CLEAR_STARWARS_FILMS:
+      return {
+        ...state,
+        allFilmsArr: []
+      }
     // re: fetchCurrentFilmPending: false,
     case FETCH_STARWARS_FILM_ARR_PENDING:
       return {
@@ -107,4 +113,5 @@ export const addFilmError = state => {
 export const allFilms = state => {
   return state.filmReducer.allFilmsArr
 }
+
 export default filmReducer

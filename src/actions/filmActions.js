@@ -5,7 +5,14 @@ export const ADD_STARWARS_FILM_SUCCESS = 'ADD_STARWARS_FILM_SUCCESS'
 export const ADD_STARWARS_FILM_ERROR = 'ADD_STARWARS_FILM_ERROR'
 export const ADD_STARWARS_FILM_PENDING = 'ADD_STARWARS_FILM_PENDING'
 export const CHECK_STARWARS_FILM_ADDED = 'CHECK_STARWARS_FILM_ADDED'
+export const CLEAR_STARWARS_FILMS = 'CLEAR_STARWARS_FILMS'
 
+// todo - add pending and success
+export function clearStarWarsFilms() {
+  return {
+    type: CLEAR_STARWARS_FILMS
+  }
+}
 export function fetchStarWarsFilmsArrPending() {
   return {
     type: FETCH_STARWARS_FILM_ARR_PENDING

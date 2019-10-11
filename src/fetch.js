@@ -11,7 +11,8 @@ import {
   fetchStarWarsFilmSuccess,
   fetchStarWarsFilmError,
   addStarWarsFilmSuccess,
-  addStarWarsFilmPending
+  addStarWarsFilmPending,
+  clearStarWarsFilms
   // addStarWarsFilmError,
   // checkStarWarsFilmAdded
 } from './actions/filmActions.js'
@@ -20,6 +21,11 @@ import {
   fetchStarWarsPlanetSuccess,
   fetchStarWarsPlanetError
 } from './actions/planetActions.js'
+import {
+  fetchStarWarsSpeciesPending,
+  fetchStarWarsSpeciesSuccess,
+  fetchStarWarsSpeciesError
+} from './actions/speciesActions.js'
 import utils from './utils'
 
 // call paginated people
@@ -54,13 +60,15 @@ export function fetchPeople(url, type) {
             }
             return reject('error in fetchPeople() or 404')
           }
-          // console.log('four', type === 'single')
+          // index page
           if (type === 'all') {
             dispatch(fetchStarWarPersonsArrSuccess(response.results))
+            // character page
           } else if (type === 'single') {
             dispatch(fetchStarWarsPersonSuccess(response))
             fetchFilms(response.films, dispatch)
             fetchPlanet(response.homeworld, dispatch)
+            fetchSpecies(response.species[0], dispatch)
           }
           return resolve(response)
         })
@@ -72,6 +80,7 @@ export function fetchPeople(url, type) {
 }
 export function fetchFilms(filmsUrlsArr, dispatch) {
   return new Promise((resolve, reject) => {
+    dispatch(clearStarWarsFilms())
     dispatch(fetchStarWarsFilmsArrPending())
     filmsUrlsArr.forEach(filmUrl => {
       fetch(filmUrl)
@@ -94,7 +103,6 @@ export function fetchFilms(filmsUrlsArr, dispatch) {
           dispatch(addStarWarsFilmSuccess(response))
           // TODO
           // dispatch(checkStarWarsFilmAdded(response.title))
-
           return resolve(response)
         })
         .catch(error => {
@@ -119,12 +127,35 @@ export function fetchPlanet(planetUrl, dispatch) {
           )
           return reject('error in fetchPlanet() or 404')
         }
-
         dispatch(fetchStarWarsPlanetSuccess(response))
         return resolve(response)
       })
       .catch(error => {
         console.error('An error occured in fetchPlanet', error)
+      })
+  })
+}
+export function fetchSpecies(speciesUrl, dispatch) {
+  return new Promise((resolve, reject) => {
+    dispatch(fetchStarWarsSpeciesPending())
+    fetch(speciesUrl)
+      .then(res => res.json())
+      .then(response => {
+        console.log('planet res', response)
+        // ERROR handling
+        if (utils.isObjEmpty(response)) {
+          console.error('Promise REJECTED')
+          console.error('Error: Empty species response')
+          dispatch(
+            fetchStarWarsSpeciesError(new Error('Error in fetchSpecies()'))
+          )
+          return reject('error in fetchSpecies() or 404')
+        }
+        dispatch(fetchStarWarsSpeciesSuccess(response))
+        return resolve(response)
+      })
+      .catch(error => {
+        console.error('An error occured in fetchSpecies', error)
       })
   })
 }

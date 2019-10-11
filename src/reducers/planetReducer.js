@@ -12,7 +12,7 @@ const initialState = {
 
 export function planetReducer(state = initialState, action) {
   // console.log('state', state)
-  console.log('acton', action)
+  // console.log('acton', action)
   switch (action.type) {
     // re: fetchCurrentPlanetPending: false,
     case FETCH_STARWARS_PLANET_PENDING:
@@ -40,14 +40,13 @@ export function planetReducer(state = initialState, action) {
   }
 }
 // displays the current person being fetched
-export const fetchCurrentPlanetSuccess = state => {
-  return state.planetReducer.currentPlanetFetched
-}
+export const fetchCurrentPlanetSuccess = state =>
+  state.planetReducer.currentPlanetFetched
 // displays true/false
 export const fetchCurrentPlanetPending = state =>
   state.planetReducer.fetchCurrentPlanetPending
+// displays error
 export const fetchCurrentPlanetError = state =>
-  // displays error
   state.planetReducer.fetchCurrentPlanetError
 
 export default planetReducer
