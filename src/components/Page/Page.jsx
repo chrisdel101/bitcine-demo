@@ -26,6 +26,7 @@ function renderMarkup(props) {
     if (utils.checkForParams(url.hash)) {
       return (
         <PersonMarkup
+          starshipData={props.starshipData}
           speciesData={props.speciesData}
           planetData={props.planetData}
           filmsData={props.filmsData}

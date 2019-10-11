@@ -10,6 +10,7 @@ function PersonMarkup(props) {
     <React.Fragment>
       <Icon iconName="arrow_back" size="18" onClick={props.onClick} />
       <Main
+        starshipData={props.starshipData}
         speciesData={props.speciesData}
         planetData={props.planetData}
         filmsData={props.filmsData}

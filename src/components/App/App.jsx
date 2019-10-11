@@ -172,6 +172,9 @@ class App extends Component {
               : null
           }
           filmsData={this.props.allFilms.length ? this.props.allFilms : null}
+          starshipData={
+            this.props.allStarships ? this.props.allStarships : null
+          }
           planetData={
             this.props.fetchCurrentPlanetSuccess
               ? this.props.fetchCurrentPlanetSuccess

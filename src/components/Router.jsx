@@ -23,6 +23,7 @@ function Router(props) {
           path="/person/:personslug"
           component={() => (
             <Page
+              starshipData={props.starshipData}
               speciesData={props.speciesData}
               planetData={props.planetData}
               filmsData={props.filmsData}

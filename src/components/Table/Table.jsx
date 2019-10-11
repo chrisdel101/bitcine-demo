@@ -42,7 +42,8 @@ function Table(props) {
       !props.personData ||
       !props.filmsData ||
       !props.planetData ||
-      !props.speciesData
+      !props.speciesData ||
+      !props.starshipData
     )
       return null
     const person = props.personData
@@ -101,11 +102,13 @@ function Table(props) {
           </tr>
           <tr>
             <td>Starships</td>
-            <td>{person.starships}</td>
-          </tr>
-          <tr>
-            <td>Vehicles</td>
-            <td>{person.vehicles}</td>
+            <td>
+              <ul>
+                {props.starshipData.map((starship, i) => {
+                  return <li key={i}>{starship.name}</li>
+                })}
+              </ul>
+            </td>
           </tr>
         </tbody>
       </table>

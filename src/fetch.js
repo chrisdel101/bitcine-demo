@@ -71,7 +71,6 @@ export function fetchPeople(url, type) {
           // index page
           if (type === 'all') {
             dispatch(fetchStarWarPersonsArrSuccess(response.results))
-            // resolve()
             // character page
           } else if (type === 'single') {
             dispatch(fetchStarWarsPersonSuccess(response))
