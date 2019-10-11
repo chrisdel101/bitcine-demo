@@ -1,94 +1,104 @@
 import {
-  FETCH_STARWARS_PERSON_PENDING,
-  FETCH_STARWARS_PERSON_SUCCESS,
-  FETCH_STARWARS_PERSON_ERROR,
-  ADD_STARWARS_PERSON_PENDING,
-  ADD_STARWARS_PERSON_SUCCESS,
-  ADD_STARWARS_PERSON_ERROR
-} from '../actions/personActions'
+  FETCH_STARWARS_STARSHIP_ARR_PENDING,
+  FETCH_STARWARS_STARSHIP_SUCCESS,
+  FETCH_STARWARS_STARSHIP_ERROR,
+  ADD_STARWARS_STARSHIP_PENDING,
+  ADD_STARWARS_STARSHIP_SUCCESS,
+  ADD_STARWARS_STARSHIP_ERROR,
+  CHECK_STARWARS_STARSHIP_ADDED,
+  CLEAR_STARWARS_STARSHIP
+} from '../actions/starshipActions'
 
 const initialState = {
-  currentPerson: null,
-  fetchCurrentPersonPending: false,
-  fetchCurrentPersonError: null,
-  addPersonPending: false,
-  addPersonSuccess: false,
-  addPersonError: null,
-  allPersons: []
+  // same as success
+  currentStarshipFetched: null,
+  fetchCurrentStarshipPending: false,
+  fetchCurrentStarshipError: null,
+  addStarshipPending: false,
+  addStarshipError: null,
+  addStarshipSuccess: false,
+  allStarshipsArr: []
 }
 
-export function personReducer(state = initialState, action) {
+export function starshipReducer(state = initialState, action) {
+  // console.log('state', state)
   // console.log('acton', action)
   switch (action.type) {
-    // re: fetchCurrentPersonPending: false,
-    case FETCH_STARWARS_PERSON_PENDING:
+    case CLEAR_STARWARS_STARSHIP:
       return {
         ...state,
-        currentPersonPending: true
+        allStarshipsArr: []
       }
-    // re:   currentPerson: null
-    case FETCH_STARWARS_PERSON_SUCCESS:
+    // re: fetchCurrentStarshipPending: false,
+    case FETCH_STARWARS_STARSHIP_ARR_PENDING:
+      return {
+        ...state,
+        fetchCurrentStarshipPending: true
+      }
+    // re:   currentFilm: null
+    case FETCH_STARWARS_STARSHIP_SUCCESS:
       // console.log('HELLO1', action.person)
       return {
         ...state,
-        currentPersonPending: false,
-        currentPerson: action.person
+        fetchCurrentStarshipPending: false,
+        currentStarshipFetched: action.starship
       }
-    // re: fetchCurrentPersonError: null,
-    case FETCH_STARWARS_PERSON_ERROR:
+    // re: fetchCurrentFilmError: null,
+    case FETCH_STARWARS_STARSHIP_ERROR:
       return {
         ...state,
-        currentPersonPending: false,
-        fetchCurrentPersonError: action.error
+        fetchCurrentStarshipPending: false,
+        addStarshipSuccess: false,
+        fetchCurrentStarshipError: action.error
       }
-    // re: allPersons: []
-    case ADD_STARWARS_PERSON_SUCCESS:
+    // re: allFilm: []
+    case ADD_STARWARS_STARSHIP_SUCCESS:
       // console.log('HELLO2', action.person)
       return {
         ...state,
-        addPersonPending: false,
-        // add person to array
-        allPersons: [...state.allPersons, action.person]
+        addStarshipSuccess: true,
+        addStarshipPending: false,
+        // add Film to array
+        allStarshipsArr: [...state.allStarshipsArr, action.starship]
       }
-    // re:currentPersonAddedPending: false
-    case ADD_STARWARS_PERSON_PENDING:
+    // re:currentFilmAddedPending: false
+    case ADD_STARWARS_STARSHIP_PENDING:
       return {
         ...state,
-        addPersonPending: true
+        addStarshipPending: true
       }
-    //  re: currentPersonAddedError
-    case ADD_STARWARS_PERSON_ERROR:
-      console.log('HIHIHIH', action.error)
+    //  re: currentFilmAddedError
+    case ADD_STARWARS_STARSHIP_ERROR:
       return {
         ...state,
-        addPersonPending: false,
-        addPersonError: action.error
+        addStarshipSuccess: false,
+        addStarshipPending: false,
+        addStarshipError: action.error
+      }
+    // TODO
+    case CHECK_STARWARS_STARSHIP_ADDED:
+      const starshipAdded = state.allStarshipsArr.some(ship => {
+        return ship.title === action.title
+      })
+      return {
+        addStarshipSuccess: starshipAdded,
+        ...state
       }
     default:
       return state
   }
 }
+export const fetchCurrentStarshipSuccess = state =>
+  state.starshipReducer.currentStarshipFetched
+export const fetchCurrentStarshipPending = state =>
+  state.starshipReducer.fetchCurrentStarshipPending
+export const fetchCurrentStarshipError = state =>
+  state.starshipReducer.fetchCurrentStarshipError
+export const addStarshipSuccess = state =>
+  state.starshipReducer.addStarshipSuccess
+export const addStarshipPending = state =>
+  state.starshipReducer.addStarshipPending
+export const addStarshipError = state => state.starshipReducer.addStarshipError
+export const allStarships = state => state.starshipReducer.allStarshipsArr
 
-// get state from store and map  to views single
-
-// displays the current person being fetched
-export const fetchCurrentPersonSuccess = state => {
-  return state.personReducer.currentPerson
-}
-// displays true/false
-export const fetchCurrentPersonPending = state =>
-  state.personReducer.currentPersonPending
-export const fetchCurrentPersonError = state =>
-  // displays error
-  state.personReducer.fetchCurrentPersonError
-// displays current person added to persons array
-export const addPersonSuccess = state => state.personReducer.currentPerson
-export const addPersonPending = state => state.personReducer.addPersonPending
-// displays error
-export const addPersonError = state => {
-  // consol e.log('state', state)
-  return state.personReducer.addPersonError
-}
-// returns persons array
-export const viewPersonsArray = state => state.personReducer.allPersons
-export default personReducer
+export default starshipReducer

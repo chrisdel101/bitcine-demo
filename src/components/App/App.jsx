@@ -33,6 +33,12 @@ import {
   fetchCurrentSpeciesPending,
   fetchCurrentSpeciesError
 } from '../../reducers/speciesReducer'
+import {
+  fetchCurrentStarshipSuccess,
+  fetchCurrentStarshipPending,
+  fetchCurrentStarshipError,
+  allStarships
+} from '../../reducers/starshipReducer'
 import endpoints from '../../endpoints'
 import slugify from 'slugify'
 
@@ -212,7 +218,12 @@ const mapStateToProps = state => ({
   // species
   fetchCurrentSpeciesSuccess: fetchCurrentSpeciesSuccess(state),
   fetchCurrentSpeciesPending: fetchCurrentSpeciesPending(state),
-  fetchCurrentSpeciesError: fetchCurrentSpeciesError(state)
+  fetchCurrentSpeciesError: fetchCurrentSpeciesError(state),
+  // starships
+  fetchCurrentStarshipSuccess: fetchCurrentStarshipSuccess(state),
+  fetchCurrentStarshipPending: fetchCurrentStarshipPending(state),
+  fetchCurrentStarshipError: fetchCurrentStarshipError(state),
+  allStarships: allStarships(state)
 })
 // takes the fetchPerson call and dispatches it
 const mapDispatchToProps = dispatch =>

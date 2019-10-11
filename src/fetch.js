@@ -17,6 +17,14 @@ import {
   // checkStarWarsFilmAdded
 } from './actions/filmActions.js'
 import {
+  fetchStarWarsStarshipArrPending,
+  fetchStarWarsStarshipSuccess,
+  fetchStarWarsStarshipError,
+  addStarWarsStarshipSuccess,
+  addStarWarsStarshipPending,
+  clearStarWarsStarships
+} from './actions/starshipActions.js'
+import {
   fetchStarWarsPlanetPending,
   fetchStarWarsPlanetSuccess,
   fetchStarWarsPlanetError
@@ -70,6 +78,7 @@ export function fetchPeople(url, type) {
             fetchFilms(response.films, dispatch)
             fetchPlanet(response.homeworld, dispatch)
             fetchSpecies(response.species[0], dispatch)
+            fetchStarship(response.starships, dispatch)
           }
           resolve(response)
         })
@@ -108,6 +117,41 @@ export function fetchFilms(filmsUrlsArr, dispatch) {
         })
         .catch(error => {
           console.error('An error occured in fetchFilms', error)
+        })
+    })
+  })
+}
+export function fetchStarship(starshipUrlsArr, dispatch) {
+  return new Promise((resolve, reject) => {
+    dispatch(clearStarWarsStarships())
+    dispatch(fetchStarWarsStarshipArrPending())
+    starshipUrlsArr.forEach(shipUrl => {
+      fetch(shipUrl)
+        .then(res => res.json())
+        .then(response => {
+          // console.log('film res', response)
+          // ERROR handling
+          if (utils.isObjEmpty(response)) {
+            console.error('Promise REJECTED')
+            // if (!response.results || !response.results.length) {
+            console.error('Error: Empty persons array')
+            // }
+            dispatch(
+              fetchStarWarsFilmError(new Error('Error in fetchStarship())'))
+            )
+            // }
+            return reject('error in fetchStarship() or 404')
+          }
+
+          dispatch(fetchStarWarsStarshipSuccess(response))
+          dispatch(addStarWarsFilmPending)
+          dispatch(addStarWarsStarshipSuccess(response))
+          // TODO
+          // dispatch(checkStarWarsFilmAdded(response.title))
+          return resolve(response)
+        })
+        .catch(error => {
+          console.error('An error occured in fetchStarship()', error)
         })
     })
   })
