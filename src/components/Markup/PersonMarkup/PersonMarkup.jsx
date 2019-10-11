@@ -1,6 +1,7 @@
 import React from 'react'
 import Main from '../../Main/Main.jsx'
 import Icon from '../../Material/Icon/Icon.jsx'
+import './index.css'
 function PersonMarkup(props) {
   if (!props) return null
   if (!props.personData) {

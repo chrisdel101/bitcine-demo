@@ -1,0 +1,9 @@
+.icon {
+  display: flex;
+  margin-left: 50px;
+  font-weight: bold;
+  min-height: 50px;
+}
+.icon:hover .material-icons {
+  cursor: pointer;
+}

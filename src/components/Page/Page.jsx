@@ -5,7 +5,8 @@ import utils from '../../utils'
 import PersonMarkup from '../Markup/PersonMarkup/PersonMarkup'
 
 function renderMarkup(props) {
-  if (!props.personsData) return null
+  if (!props) return null
+  // console.log('url', url)
   if (props.route === 'index') {
     return (
       <IndexMarkup
@@ -19,6 +20,7 @@ function renderMarkup(props) {
     )
   }
   const url = new URL(window.location)
+  console.log('url', url)
   if (url.hash.includes('/person')) {
     if (utils.checkForParams(url.hash)) {
       return (

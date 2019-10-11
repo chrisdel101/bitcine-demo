@@ -104,6 +104,7 @@ class App extends Component {
   }
   // renders page and returns person obj
   renderPersonPage(e) {
+    console.log('here')
     const personNameVal = e.target.innerHTML
     const personObj = this.props.fetchCurrentPersonsArrSuccess.find(person => {
       return person.name === personNameVal
@@ -111,7 +112,7 @@ class App extends Component {
     // fetch api data
     this.callFetchPersons('single', personObj.url)
       .then(res => {
-        //render char page when promise resolves
+        //temp solution= render char page when promise resolves
         window.location = `#/person/${slugify(personObj.name).toLowerCase()}`
       })
       .catch(e => console.error('An Error orcured in renderPersonPage()'))

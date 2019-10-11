@@ -1,0 +1,9 @@
+.person-name-cell {
+  color: blue;
+}
+.person-name-cell:hover {
+  cursor: pointer;
+}
+table li {
+  list-style: none;
+}
