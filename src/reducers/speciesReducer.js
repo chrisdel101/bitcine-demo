@@ -43,7 +43,7 @@ export const fetchCurrentSpeciesSuccess = state => {
 export const fetchCurrentSpeciesPending = state =>
   state.speciesReducer.fetchCurrentSpeciesPending
 // displays error
-export const fetchCurrentPerfetchCurrentSpeciesErrorsonError = state =>
+export const fetchCurrentSpeciesError = state =>
   state.speciesReducer.fetchCurrentSpeciesError
 
 export default speciesReducer

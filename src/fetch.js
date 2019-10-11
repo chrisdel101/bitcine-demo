@@ -63,6 +63,7 @@ export function fetchPeople(url, type) {
           // index page
           if (type === 'all') {
             dispatch(fetchStarWarPersonsArrSuccess(response.results))
+            // resolve()
             // character page
           } else if (type === 'single') {
             dispatch(fetchStarWarsPersonSuccess(response))
@@ -70,7 +71,7 @@ export function fetchPeople(url, type) {
             fetchPlanet(response.homeworld, dispatch)
             fetchSpecies(response.species[0], dispatch)
           }
-          return resolve(response)
+          resolve(response)
         })
         .catch(error => {
           console.error('An error occured in fetchPeople', error)

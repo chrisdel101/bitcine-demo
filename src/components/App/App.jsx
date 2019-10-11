@@ -28,6 +28,11 @@ import {
   fetchCurrentPlanetPending,
   fetchCurrentPlanetError
 } from '../../reducers/planetReducer'
+import {
+  fetchCurrentSpeciesSuccess,
+  fetchCurrentSpeciesPending,
+  fetchCurrentSpeciesError
+} from '../../reducers/speciesReducer'
 import endpoints from '../../endpoints'
 import slugify from 'slugify'
 
@@ -63,38 +68,21 @@ class App extends Component {
       'all',
       `${endpoints.root}${endpoints.personsPage(this.state.currentPersonsPage)}`
     )
-    // this.callFetchFilms([
-    //   'https://swapi.co/api/films/2/',
-    //   'https://swapi.co/api/films/6/',
-    //   'https://swapi.co/api/films/3/',
-    //   'https://swapi.co/api/films/1/',
-    //   'https://swapi.co/api/films/7/'
-    // ])
   }
   // load all persons - all or single person
   callFetchPersons(type, url) {
-    // console.log('app', url)
-    this.props
-      .fetchPeople(url, type)
-      .then(res => {
-        // console.log('res', res)
-      })
-      .catch(e => {
-        console.error('Error in API call', e)
-      })
+    return new Promise((resolve, reject) => {
+      this.props
+        .fetchPeople(url, type)
+        .then(res => {
+          resolve(res)
+        })
+        .catch(e => {
+          console.error('Error in API call', e)
+          reject('Error in API call', e)
+        })
+    })
   }
-  // callFetchFilms(filmsArr) {
-  //   return new Promise((resolve, reject) => {
-  //     for (let i = 0; i < filmsArr.length; i++) {
-  //       console.log(i)
-  //       this.props.fetchFilms(filmsArr[i]).catch(e => {
-  //         console.error('Error in API call', e)
-  //       })
-  //     }
-  //   }).finally(() => {
-  //     console.log('done')
-  //   })
-  // }
   handleClick(e) {
     // console.log(e.target.innerHTML)
     // icon component
@@ -122,14 +110,13 @@ class App extends Component {
     const personObj = this.props.fetchCurrentPersonsArrSuccess.find(person => {
       return person.name === personNameVal
     })
-    // console.log(personObj)
     // fetch api data
     this.callFetchPersons('single', personObj.url)
-    // add delay to render - TO DO - fix later
-    setTimeout(() => {
-      // render template
-      window.location = `#/person/${slugify(personObj.name).toLowerCase()}`
-    }, 400)
+      .then(res => {
+        //render char page when promise resolves
+        window.location = `#/person/${slugify(personObj.name).toLowerCase()}`
+      })
+      .catch(e => console.error('An Error orcured in renderPersonPage()'))
     return personObj
   }
   paginateDown() {
@@ -189,6 +176,11 @@ class App extends Component {
               ? this.props.fetchCurrentPersonsArrSuccess
               : null
           }
+          speciesData={
+            this.props.fetchCurrentSpeciesSuccess
+              ? this.props.fetchCurrentSpeciesSuccess
+              : null
+          }
           indexTableCols={this.state.indexTableCols}
           personTableCols={this.state.personTableCols}
         />
@@ -216,7 +208,11 @@ const mapStateToProps = state => ({
   // planets
   fetchCurrentPlanetSuccess: fetchCurrentPlanetSuccess(state),
   fetchCurrentPlanetPending: fetchCurrentPlanetPending(state),
-  fetchCurrentPlanetError: fetchCurrentPlanetError(state)
+  fetchCurrentPlanetError: fetchCurrentPlanetError(state),
+  // species
+  fetchCurrentSpeciesSuccess: fetchCurrentSpeciesSuccess(state),
+  fetchCurrentSpeciesPending: fetchCurrentSpeciesPending(state),
+  fetchCurrentSpeciesError: fetchCurrentSpeciesError(state)
 })
 // takes the fetchPerson call and dispatches it
 const mapDispatchToProps = dispatch =>

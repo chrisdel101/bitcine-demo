@@ -9,6 +9,7 @@ function Main(props) {
     <main className="Main">
       <div className="character-conatiner">
         <Table
+          speciesData={props.speciesData}
           planetData={props.planetData}
           filmsData={props.filmsData}
           personData={props.personData}

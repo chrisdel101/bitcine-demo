@@ -38,7 +38,13 @@ function Table(props) {
       </table>
     )
   } else if (props.route === 'person/:personslug') {
-    if (!props.personData || !props.filmsData || !props.planetData) return null
+    if (
+      !props.personData ||
+      !props.filmsData ||
+      !props.planetData ||
+      !props.speciesData
+    )
+      return null
     const person = props.personData
     return (
       <table className="table table-striped">
@@ -91,7 +97,7 @@ function Table(props) {
           </tr>
           <tr>
             <td>Species</td>
-            <td>{person.species}</td>
+            <td>{props.speciesData.name}</td>
           </tr>
           <tr>
             <td>Starships</td>
