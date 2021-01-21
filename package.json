@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.6.2",
-    "immer": "^4.0.1",
+    "immer": "^8.0.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-redux": "^7.1.1",
